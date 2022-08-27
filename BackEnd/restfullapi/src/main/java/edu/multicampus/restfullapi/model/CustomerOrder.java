@@ -22,8 +22,8 @@ public class CustomerOrder {
     Product product;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, optional = false)
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
+    @MapsId("id")
+    @JoinColumn(name = "id")
     User user;
 
     @Column(name ="amount")

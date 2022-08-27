@@ -31,17 +31,14 @@ public class User {
 	@Size(max = 120)
 	private String password;
 
-	@NotBlank
 	@Size(max = 120)
 	private String name;
 
-	@NotBlank
 	@Size(max = 120)
 	private String address;
 
-	@NotBlank
 	@Size(max = 120)
-	private int phone;
+	private String phone;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
 	@JsonIgnore
@@ -55,8 +52,8 @@ public class User {
 	}
 
 	public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
-			@NotBlank @Size(max = 120) String password, @NotBlank @Size(max = 120) String name,
-			@NotBlank @Size(max = 120) String address, @NotBlank @Size(max = 120) int phone) {
+			@NotBlank @Size(max = 120) String password,  @Size(max = 120) String name,
+			 @Size(max = 120) String address,   @Size(max = 120) String phone) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -122,11 +119,11 @@ public class User {
 		this.address = address;
 	}
 
-	public int getPhone() {
+	public @NotBlank @Size(max = 120) String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(@NotBlank @Size(max = 120) String phone) {
 		this.phone = phone;
 	}
 

@@ -20,17 +20,14 @@ public class SignupRequest {
 	@Size(min = 6, max = 40)
 	private String password;
 
-	@NotBlank
 	@Size(max = 120)
 	private String name;
 
-	@NotBlank
 	@Size(max = 120)
 	private String address;
 
-	@NotBlank
 	@Size(max = 120)
-	private int phone;
+	private String phone;
 
 	public String getName() {
 		return name;
@@ -48,11 +45,11 @@ public class SignupRequest {
 		this.address = address;
 	}
 
-	public int getPhone() {
+	public @Size(max = 120) String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(@Size(max = 120) String phone) {
 		this.phone = phone;
 	}
 

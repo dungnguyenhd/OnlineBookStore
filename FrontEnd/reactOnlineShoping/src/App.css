@@ -1,0 +1,129 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.paginationBttns{
+  width: 80%;
+  height: 40px;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  padding: 20px 0;
+}
+
+.paginationBttns a{
+  padding: 15px;
+  margin: 8px;
+  border-radius: 15px;
+  border: 1px solid rgb(34, 99, 221);
+  color: rgb(34, 99, 221)
+
+}
+
+.paginationBttns a:hover{
+  background-color: blue;
+
+}
+
+.paginationActive{
+  color: red;
+
+}
+.button-plus:hover {
+  background-color: #fd7e14 !important;
+}
+.button-minus:hover {
+  background-color: #990000 !important;
+}
+.scrollbar {
+     overflow-y: scroll;
+     height: 140px;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+
+}
+
+/* Track */
+.scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #fd7e14;
+}
+
+/* Handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #fd7e14;
+}
+
+label,
+input{
+    font-family: "DM Sans",sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+label{
+    display: block;
+    position: relative;
+    color: #eb3461;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+input{
+    position: relative;
+    width: 300px;
+    padding: 10px 0;
+    background-color: white;
+    border-radius: 4px;
+    color: #e5e5e5;
+    font-weight: 250;
+}
+
+.link-icon{
+  text-decoration: none;
+  color: white;
+}
+
+.navbar{
+  background-color: rgb(7, 90, 161);
+}
