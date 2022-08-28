@@ -29,6 +29,9 @@ public class Product {
 	@Column(name = "product_type")
 	private String productType;
 	
+	@Column(name = "product_image")
+	private String productImage;
+	
 	@Column(name = "product_oldPrice")
 	private int productOldPrice;
 	
@@ -62,7 +65,7 @@ public class Product {
 
 
 	public Product(String productName, String productType, int productOldPrice, int productNewPrice,
-			int productAmount, Date productDate, String productDescription, Boolean productStatus, Store store) {
+			int productAmount, Date productDate, String productDescription, Boolean productStatus,String productImage ,Store store) {
 		super();
 		this.productName = productName;
 		this.productType = productType;
@@ -72,9 +75,9 @@ public class Product {
 		this.productDate = productDate;
 		this.productDescription = productDescription;
 		this.productStatus = productStatus;
+		this.productImage = productImage;
 		this.store = store;
 	}
-
 
 	public int getProductId() {
 		return productId;
@@ -83,6 +86,16 @@ public class Product {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+
+	public String getProductImage() {
+		return productImage;
+	}
+
+
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 
 

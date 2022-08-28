@@ -28,6 +28,9 @@ public class SignupRequest {
 
 	@Size(max = 120)
 	private String phone;
+	
+	@Size(max = 120)
+	private String avatar;
 
 	public String getName() {
 		return name;
@@ -84,4 +87,13 @@ public class SignupRequest {
 	public void setRole(Set<String> role) {
 		this.role = role;
 	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	
 }

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import edu.multicampus.restfullapi.model.Store;
+import edu.multicampus.restfullapi.model.User;
 import edu.multicampus.restfullapi.repository.StoreRepository;
+import edu.multicampus.restfullapi.repository.UserRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -26,6 +28,9 @@ import edu.multicampus.restfullapi.repository.StoreRepository;
 public class StoreController {
 	@Autowired
 	StoreRepository storeRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	@RequestMapping("/stores")
 	public ResponseEntity<List<Store>> getAllstores(@Param("storeName") String storeName) {
@@ -62,9 +67,23 @@ public class StoreController {
 	@PostMapping("/stores")
 	public ResponseEntity<Store> createBranch(@RequestBody Store store) {
 		try {
-			Store newstore = storeRepository.save(new Store(store.getStoreName(), store.getStoreAddress(),
-					store.getStoreEmail(), store.getStorePhone(), store.getStoreImageURL()));
-			return new ResponseEntity<>(newstore, HttpStatus.CREATED);
+//			Store newstore = storeRepository.save(new Store(store.getStoreName(), store.getStoreAddress(),
+//					store.getStoreEmail(), store.getStorePhone(), store.getStoreImageURL(), store.getUser()));
+//			return new ResponseEntity<>(newstore, HttpStatus.CREATED);
+			Optional<User> user = userRepository.findById(store.getUser().getId());
+			
+			if (user.isPresent()) {
+				User exstingUser = user.get();
+
+				Store newstore = storeRepository.save(
+						new Store(store.getStoreName(), store.getStoreAddress(),
+								store.getStoreEmail(), store.getStorePhone(), store.getStoreImageURL(), exstingUser));
+
+				return new ResponseEntity<Store>(newstore, HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+			}
+			
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
 		}

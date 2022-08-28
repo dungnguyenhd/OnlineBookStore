@@ -40,6 +40,12 @@ public class User {
 	@Size(max = 120)
 	private String phone;
 	
+	@Size(max = 500)
+	private String avatar;
+	
+    @OneToOne(mappedBy = "user")
+    private Store store;
+	
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	Set<CustomerOrder> amount;
@@ -53,7 +59,7 @@ public class User {
 
 	public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
 			@NotBlank @Size(max = 120) String password,  @Size(max = 120) String name,
-			 @Size(max = 120) String address,   @Size(max = 120) String phone) {
+			 @Size(max = 120) String address,   @Size(max = 120) String phone, @Size(max = 500) String avatar) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -61,6 +67,7 @@ public class User {
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
+		this.avatar = avatar;
 	}
 
 	public Long getId() {
@@ -69,6 +76,14 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public String getUsername() {

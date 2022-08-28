@@ -83,7 +83,7 @@ public class ProductController {
 				Product pl = productRepository.save(
 						new Product(product.getProductName(), product.getProductType(), product.getProductOldPrice(),
 								product.getProductNewPrice(), product.getProductAmount(), product.getProductDate(),
-								product.getProductDescription(), product.getProductStatus(), exstingStore));
+								product.getProductDescription(), product.getProductStatus(), product.getProductImage(), exstingStore));
 
 				return new ResponseEntity<Product>(pl, HttpStatus.CREATED);
 			} else {
@@ -109,6 +109,7 @@ public class ProductController {
 			_product.setProductDate(_product.getProductDate());
 			_product.setProductDescription(_product.getProductDescription());
 			_product.setProductStatus(_product.getProductStatus());
+			_product.setProductImage(_product.getProductImage());
 			_product.setStore(_product.getStore());
 			return new ResponseEntity<>(productRepository.save(_product), HttpStatus.OK);
 		} else {

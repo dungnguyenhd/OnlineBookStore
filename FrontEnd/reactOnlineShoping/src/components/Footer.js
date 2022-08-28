@@ -1,7 +1,6 @@
 import { Outlet, Link } from 'react-router-dom';
 import React from 'react';
-import logo from '../image/logo1.jpg'
-import footer from '../css/footer.css';
+import '../css/footer.css';
 
 const Footer = () => {
     return (
@@ -13,7 +12,7 @@ const Footer = () => {
 
                     <div className='row' >
                         <div className='rounded float-start col-md-3 col-sm-2'>
-                            <Link to="/#start"><img src={logo} alt=".." className='rounded-circle  mt-4 ms-5' style={{width: '60%', height: undefined, aspectRatio: 1 / 1,}}></img></Link>
+                            <Link to="/#start"><img src='https://i.imgur.com/N9Kg4e1.png' alt=".." className='mt-4 ms-5' style={{width: '60%', height: undefined, aspectRatio: 1 / 1,}}></img></Link>
                         </div>
                        <div className='col-md-9 col-sm-2 row'>
                        <div className="col-md-3 col-sm-2">

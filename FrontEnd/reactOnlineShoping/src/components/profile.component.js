@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Navigate  } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
-export default class Profile extends Component {
+export default class Profile2 extends Component {
   constructor(props) {
     super(props);
 

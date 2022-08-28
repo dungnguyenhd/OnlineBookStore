@@ -10,8 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -36,6 +39,10 @@ public class Store {
 
 	@Column(name = "store_image", length = 500)
 	private String storeImageURL;
+	
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private User user;
 
 	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JsonIgnore
@@ -46,13 +53,24 @@ public class Store {
 	}
 
 	public Store(String storeName, String storeAddress, String storeEmail, int storePhone,
-			String storeImageURL) {
+			String storeImageURL, User user) {
 		super();
 		this.storeName = storeName;
 		this.storeAddress = storeAddress;
 		this.storeEmail = storeEmail;
 		this.storePhone = storePhone;
 		this.storeImageURL = storeImageURL;
+		this.user = user;
+	}
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getStoreId() {
