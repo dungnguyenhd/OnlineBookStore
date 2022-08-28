@@ -22,8 +22,6 @@ import FoodAddNew from './pages/AddNewFood';
 import Branches from './components/Branches';
 import EmpDetail from './components/EmpDetail';
 import EmpUpdate from './components/EmpUpdate';
-import Employee from './components/addition/Employee';
-import EmployeeDetail from './components/addition/Employee';
 import TableStatusManage from './pages/TableStatusManage';
 import ChangeTable from './pages/ChangeTable';
 import Success from './pages/Success';
@@ -34,6 +32,7 @@ import eventBus from "./common/EventBus";
 import { Link } from "react-router-dom";
 import authService from "./services/auth.service";
 import { useEffect, useState } from "react";
+import './App.css';
 
 export const UserContext = createContext();
 
@@ -282,9 +281,9 @@ function App() {
           </div>
         </React.Fragment >
 
-        
-      <Routes>
       <UserContext.Provider value={stateLogin.currentUser}>
+      <Routes>
+
         <Route exact path="/*" element={<HomeMain />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
@@ -307,13 +306,11 @@ function App() {
         <Route path="branches" element={<Branches />} />
         <Route path="detail/:branchId" element={<EmpDetail />} />
         <Route path="edit/:branchId" element={<EmpUpdate />} />
-        <Route path="employee" element={<Employee />} />
-        <Route path="employeedetail/:employeeId" element={<EmployeeDetail />} />
         <Route path="change" element={<TableStatusManage />} />
         <Route path="changetable/:id" element={<ChangeTable />} />
         <Route path="success" element={<Success />} />
-        </UserContext.Provider>
       </Routes>
+      </UserContext.Provider>
       
       <Footer />
     </BrowserRouter>
