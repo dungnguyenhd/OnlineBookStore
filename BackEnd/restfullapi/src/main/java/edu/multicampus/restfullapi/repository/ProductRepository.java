@@ -12,4 +12,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value ="SELECT * FROM products p WHERE p.product_name LIKE %?1%"
 			+ " OR p.product_type LIKE %?1%",nativeQuery = true)
     public List<Product> search(String search);
+	
+	@Query(value ="SELECT * FROM products p WHERE p.store_id",nativeQuery = true)
+    public List<Product> search1(String search);
+	
+	@Query(value ="SELECT * FROM products p WHERE p.store_id = ?",nativeQuery = true)
+	public List<Product> getProductByStore(Integer storeId);
+
 }

@@ -52,6 +52,24 @@ public class StoreController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@RequestMapping("/storeUser")
+	public ResponseEntity<Store> getStorebyUserId(@Param("storeName") Integer storeName) {
+		try {
+			Store storesUser = new Store();
+
+			if (storeName !=null) {
+				storesUser = storeRepository.search1(storeName);
+			}
+			else {
+				return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(storesUser, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@GetMapping("/stores/{id}")
 	public ResponseEntity<Store> getBranchById(@PathVariable("id") Integer id) {

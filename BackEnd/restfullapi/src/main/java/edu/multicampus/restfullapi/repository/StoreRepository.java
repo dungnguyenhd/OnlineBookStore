@@ -9,6 +9,9 @@ import edu.multicampus.restfullapi.model.Store;
 
 @Repository
 public interface StoreRepository extends JpaRepository<Store, Integer> {
-	@Query(value ="SELECT * FROM stores s WHERE s.id",nativeQuery = true)
+	@Query(value ="SELECT * FROM stores s WHERE s.storeName LIKE %?1%",nativeQuery = true)
     public List<Store> search(String search);
+	
+	@Query(value ="SELECT * FROM stores s WHERE s.id = ?",nativeQuery = true)
+    public Store search1(Integer id);
 }

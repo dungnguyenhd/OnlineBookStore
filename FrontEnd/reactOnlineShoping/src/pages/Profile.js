@@ -1,12 +1,12 @@
 import React, { useContext} from "react";
 import { UserContext } from "../App";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
     const navigate = useNavigate();
     const getuser = useContext(UserContext);
 
-    console.log(getuser);
+    // console.log(getuser);
 
     if (getuser != null) {
         return (
@@ -100,8 +100,8 @@ export default function Profile() {
                                     <hr />
                                     <div className="row">
                                         <div className="col-sm-12">
-                                            <button className="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"> <i className="fas fa-save"></i> Lưu thông tin</button>
-                                            <button className="btn btn-danger ms-2 " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"> <i className="fas fa-store"></i> Cửa hàng của tôi</button>
+                                            <button className="btn btn-info "> <i className="fas fa-save"></i> Lưu thông tin</button>
+                                            <Link to='/store'><button className="btn btn-danger ms-2 "> <i className="fas fa-store"></i> Cửa hàng của tôi</button></Link>
                                         </div>
                                     </div>
                                 </div>

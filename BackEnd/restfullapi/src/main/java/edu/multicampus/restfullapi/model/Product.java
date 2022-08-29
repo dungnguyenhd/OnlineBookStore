@@ -50,6 +50,8 @@ public class Product {
 	@Column(name= "product_status")
 	private Boolean productStatus;
 	
+	@Column(name= "product_address")
+	private String productAddress;
 
 	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, optional = false)
 	@JoinColumn(name = "storeId", nullable = false)
@@ -65,7 +67,7 @@ public class Product {
 
 
 	public Product(String productName, String productType, int productOldPrice, int productNewPrice,
-			int productAmount, Date productDate, String productDescription, Boolean productStatus,String productImage ,Store store) {
+			int productAmount, Date productDate, String productDescription, Boolean productStatus,String productImage, String productAddress ,Store store) {
 		super();
 		this.productName = productName;
 		this.productType = productType;
@@ -76,6 +78,7 @@ public class Product {
 		this.productDescription = productDescription;
 		this.productStatus = productStatus;
 		this.productImage = productImage;
+		this.productAddress = productAddress;
 		this.store = store;
 	}
 
@@ -83,24 +86,28 @@ public class Product {
 		return productId;
 	}
 
-
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
-
 
 	public String getProductImage() {
 		return productImage;
 	}
 
-
 	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
 
-
 	public String getProductName() {
 		return productName;
+	}
+
+	public String getProductAddress() {
+		return productAddress;
+	}
+
+	public void setProductAddress(String productAddress) {
+		this.productAddress = productAddress;
 	}
 
 
@@ -108,56 +115,45 @@ public class Product {
 		this.productName = productName;
 	}
 
-
 	public String getProductType() {
 		return productType;
 	}
-
 
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
 
-
 	public int getProductOldPrice() {
 		return productOldPrice;
 	}
-
 
 	public void setProductOldPrice(int productOldPrice) {
 		this.productOldPrice = productOldPrice;
 	}
 
-
 	public int getProductNewPrice() {
 		return productNewPrice;
 	}
-
 
 	public void setProductNewPrice(int productNewPrice) {
 		this.productNewPrice = productNewPrice;
 	}
 
-
 	public int getProductAmount() {
 		return productAmount;
 	}
-
 
 	public void setProductAmount(int productAmount) {
 		this.productAmount = productAmount;
 	}
 
-
 	public Date getProductDate() {
 		return productDate;
 	}
 
-
 	public void setProductDate(Date productDate) {
 		this.productDate = productDate;
 	}
-
 
 	public String getProductDescription() {
 		return productDescription;

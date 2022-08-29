@@ -11,6 +11,14 @@ class StoreService{
         return axios.get(STORE_API_BASE_URL+text);
     }
 
+    getStoreByUser(stringSearch){
+        var text = "";
+        if(stringSearch!==""){
+            text="?storeName="+stringSearch;
+        }
+        return axios.get('http://localhost:8080/api/storeUser'+text);
+    }
+
     addNewStore(store){
         return axios.post(STORE_API_BASE_URL, store);
     }

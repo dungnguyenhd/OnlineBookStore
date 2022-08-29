@@ -19,9 +19,7 @@ const Footer = () => {
                             <li className="menu-item-title h4 ">Contact information</li>
                             <li className="menu-item">36 Hoang Cau</li>
                             <li className="menu-item">Tax number: 0123456789</li>
-                            <li className="menu-item">Press Club Bulding</li>
                             <li className="menu-item">Add: 36 Hoang Cau, Ha Noi</li>
-                            <li className="menu-item">Email: Lamcloudy99@gmail.com </li>
                         </div>
                         <div className="col-md-3 col-sm-4">
                             <li className="menu-item-title h4 ">Sitemap</li>
