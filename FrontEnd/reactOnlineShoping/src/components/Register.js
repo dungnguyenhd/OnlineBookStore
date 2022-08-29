@@ -1,7 +1,4 @@
-import React, { Component } from "react";
-// import Form from "react-validation/build/form";
-// import Input from "react-validation/build/input";
-// import CheckButton from "react-validation/build/button";
+import React from "react";
 import { isEmail } from "validator";
 import { useState } from "react";
 import AuthService from "../services/auth.service";
@@ -143,10 +140,10 @@ export default function Register() {
   return (
     <div className="container" style={{height: '810px'}}>
       <div className="row pt-5">
-        <div class="col-4"></div>
-        <div class="col-4">
+        <div className="col-4"></div>
+        <div className="col-4">
 
-        <img class="img-fluid"
+        <img className="img-fluid"
               src="https://images.squarespace-cdn.com/content/v1/5c5382928dfc8cdc537fe0e5/d7179f08-6197-43eb-b920-bdfe7c23676e/Logo+5.png?format=1500w"
               style={{ maxWidth: '80% !important', height: 'auto !important' }}/>
 
@@ -248,7 +245,7 @@ export default function Register() {
                 />
               </div>
 
-              <div className="form-group" >
+              <div className="form-group mt-2" >
                 <button className="btn btn-primary btn-block">Sign Up</button>
               </div>
             </div>
@@ -276,7 +273,7 @@ export default function Register() {
             /> */}
         </form>
       </div>
-        <div class="col-4"></div>
+        <div className="col-4"></div>
       </div>
     </div>
   );

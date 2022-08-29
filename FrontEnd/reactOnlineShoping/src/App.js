@@ -1,38 +1,18 @@
 import React, { createContext } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import About from "./pages/About";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import Footer from './components/Footer';
 import HomeMain from './pages/Home';
-import Chef from './pages/Chef';
-import Cashier from './pages/Cashier';
-import Favorite from './pages/Favorite';
-import Menu from "./pages/Menu";
-import MainCourseMenu from "./pages/MainCourseMenu";
-import SideDishMenu from "./pages/SideDishMenu";
-import DessertMenu from "./pages/DessertMenu";
-import DrinkMenu from "./pages/DrinkMenu";
-import Services from "./pages/Services";
-import Order from "./pages/Order";
-import ManageBill from "./pages/ManageBill";
-import Bill from "./pages/Bill"
-import TableAddNew from './pages/AddNewTable';
-import FoodAddNew from './pages/AddNewFood';
-import Branches from './components/Branches';
-import EmpDetail from './components/EmpDetail';
-import EmpUpdate from './components/EmpUpdate';
-import TableStatusManage from './pages/TableStatusManage';
-import ChangeTable from './pages/ChangeTable';
-import Success from './pages/Success';
-import Profile from "./components/Profile";
-import { AnimatedInput } from "./components/searchScript";
+import Profile from "./pages/Profile";
+import { AnimatedInput } from "./common/searchScript";
 // import AuthVerify from "./common/auth-verify";
 import eventBus from "./common/EventBus";
 import { Link } from "react-router-dom";
 import authService from "./services/auth.service";
 import { useEffect, useState } from "react";
 import './App.css';
+import PersonalStore from "./pages/PersonalStore";
 
 export const UserContext = createContext();
 
@@ -42,7 +22,7 @@ function App() {
       showAdminBoard: false,
       currentUser: undefined
     });
-    const [logOut, setLogOut] = useState(null);
+    const [logout, setLogout] = useState(null);
   
     useEffect(() => {
   
@@ -56,9 +36,9 @@ function App() {
         });
       }
   
-      setLogOut(authService.logout());
+      setLogout(authService.logout());
       eventBus.on("logout", () => {
-        logOut.logOut();
+        logout.logOut();
       });
   
       return () => {
@@ -158,59 +138,11 @@ function App() {
                       </>
                     )}
 
-                    {stateLogin.showModeratorBoard && (
-                      <>
-
-                        <li className="nav-item dropdown">
-                          <span className="nav-link text-light">
-                            ĐẦU BẾP{" "}
-                          </span>
-                          <ul
-                            className="dropdown-menu"
-                            aria-labelledby="navbarDropdown"
-                            style={{ backgroundColor: "#D19527" }}
-                          >
-                            <li>
-                              <Link to="/chefFoodManager" className="dropdown-item text-light">
-                                Quản lí tình trạng món ăn
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="/chef" className="dropdown-item text-light">
-                                Quản lí thực đơn ngày
-                              </Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </>
-                    )}
-
                     {stateLogin.currentUser && (
                       <>
-                        <li className="nav-item dropdown">
-                          <span className="nav-link text-light">
-                            Nhân viên{" "}
-                          </span>
-                          <ul
-                            className="dropdown-menu"
-                            aria-labelledby="navbarDropdown"
-                            style={{ backgroundColor: "#D19527" }}
-                          >
-                            <li>
-                              <Link to="/table" className="dropdown-item text-light">
-                                Order
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="/cashier" className="dropdown-item text-light">
-                                Table
-                              </Link>
-                            </li>
-                            <Link to="/ManageBill" className="dropdown-item text-light">
-                              Bill
-                            </Link>
-                          </ul>
-                        </li>
+                          <Link to='/store' className="nav-link text-light">
+                            | &#160; Cửa hàng
+                          </Link>
                       </>
                     )}
                   </ul>
@@ -226,7 +158,7 @@ function App() {
                           <Link
                             to="/login"
                             className="nav-link text-light"
-                            onClick={() => logOut()}
+                            onClick={() => logout()}
                           >
                             LogOut
                           </Link>
@@ -288,27 +220,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile/>}/>
-        <Route path="chef" element={<Chef />} />
-        <Route path="cashier" element={<Cashier />} />
-        <Route path="favorite" element={<Favorite />} />
-        <Route path="bill/:id" element={<Bill />} />
-        <Route path="addTable" element={<TableAddNew />} />
-        <Route path="addFood" element={<FoodAddNew />} />
-        <Route path="about" element={<About />} />
-        <Route path="/Menu" element={<Menu />} />
-        <Route path="/ManageBill" element={<ManageBill />} />
-        <Route path="/MainCourseMenu" element={<MainCourseMenu />} />
-        <Route path="/SideDishMenu" element={<SideDishMenu />} />
-        <Route path="/DessertMenu" element={<DessertMenu />} />
-        <Route path="/DrinkMenu" element={<DrinkMenu />} />
-        <Route path="/Services" element={<Services />} />
-        <Route path="table/order/:totalPrice" element={<Order />} />
-        <Route path="branches" element={<Branches />} />
-        <Route path="detail/:branchId" element={<EmpDetail />} />
-        <Route path="edit/:branchId" element={<EmpUpdate />} />
-        <Route path="change" element={<TableStatusManage />} />
-        <Route path="changetable/:id" element={<ChangeTable />} />
-        <Route path="success" element={<Success />} />
+        <Route path="/store" element={<PersonalStore/>}/>
       </Routes>
       </UserContext.Provider>
       

@@ -86,10 +86,10 @@ function Login() {
   return (
     <div className="container" style={{height: '810px'}}>
       <div className="row pt-5">
-        <div class="col-4"></div>
-        <div class="col-4">
-          <div class="mb-3 text-center">
-            <img class="img-fluid"
+        <div className="col-4"></div>
+        <div className="col-4">
+          <div className="mb-3 text-center">
+            <img className="img-fluid"
               src="https://images.squarespace-cdn.com/content/v1/5c5382928dfc8cdc537fe0e5/d7179f08-6197-43eb-b920-bdfe7c23676e/Logo+5.png?format=1500w"
               style={{ maxWidth: '80% !important', height: 'auto !important' }}/>
           </div>
@@ -158,7 +158,7 @@ function Login() {
           /> */}
           </form>
         </div>
-        <div class="col-4"></div>
+        <div className="col-4"></div>
       </div>
     </div>
   );
