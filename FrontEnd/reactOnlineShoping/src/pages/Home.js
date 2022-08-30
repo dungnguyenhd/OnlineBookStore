@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
+import ReactPaginate from "react-paginate";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
+
 import ProductServices from "../services/ProductServices";
 
 
@@ -31,30 +33,30 @@ const Home = () => {
     // console.log('string test: '+string);
   }, [minutes]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const data = window.localStorage.getItem('timer');
     let time = parseInt(data);
     setMinutes(time);
     // console.log(time);
   }, [])
 
-  useEffect(()=>{
-    if(minutes >=0){
-    timer = setInterval(()=>{
-      setSeconds(seconds-1);
-      if(seconds===0){
-        setMinutes(minutes-1);
-        setSeconds(59);
-      }
-    },1000)
+  useEffect(() => {
+    if (minutes >= 0) {
+      timer = setInterval(() => {
+        setSeconds(seconds - 1);
+        if (seconds === 0) {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }, 1000)
 
-    return () => clearInterval(timer);
-  }
-  else if(minutes === -1){
-    setMinutes(rand);
-    setSeconds(rand-1);
-  }
-  },[seconds]);
+      return () => clearInterval(timer);
+    }
+    else if (minutes === -1) {
+      setMinutes(rand);
+      setSeconds(rand - 1);
+    }
+  }, [seconds]);
 
   useEffect(() => {
     ProductServices.getAllProducts(searchTerm).then((res) => {
@@ -62,7 +64,7 @@ const Home = () => {
     })
   }, [searchTerm]);
 
-  const productPerPage = 8;
+  const productPerPage = 20;
   const pagesVisited = pageNumber * productPerPage;
 
   const pageCount = Math.ceil(products.length / productPerPage)
@@ -74,19 +76,19 @@ const Home = () => {
 
   if (products.length !== null) {
     listFlashSale = products.map((product) => {
-      if (minutes>=0 && !product.productStatus) {
+      if (minutes >= 0 && !product.productStatus) {
         return (
           <SwiperSlide key={product.productId}>
-            <Link className="product-link" to={'/product/'+product.productId}>
-            <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }}>
-              <img src={product.productImage} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
-                <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i className="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
-                <p className="card-text" style={{ textAlignLast: 'justify', }}><span style={{ color: 'grey', textDecoration: 'line-through', fontStyle: 'italic',fontSize: '.8rem' }}><sup>đ</sup>{product.productOldPrice.toLocaleString("en-US")}</span> &#160;
-                  <span style={{ color: 'rgb(255, 38, 0)', fontSize: '.9rem' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
+            <Link className="product-link" to={'/product/' + product.productId}>
+              <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }}>
+                <img src={product.productImage} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
+                  <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i className="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
+                  <p className="card-text" style={{ textAlignLast: 'justify', }}><span style={{ color: 'grey', textDecoration: 'line-through', fontStyle: 'italic', fontSize: '.8rem' }}><sup>đ</sup>{product.productOldPrice.toLocaleString("en-US")}</span> &#160;
+                    <span style={{ color: 'rgb(255, 38, 0)', fontSize: '.9rem' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
+                </div>
               </div>
-            </div>
             </Link>
           </SwiperSlide>
         )
@@ -98,16 +100,18 @@ const Home = () => {
 
   if (products.length !== null) {
     listProduct = products.slice(pagesVisited, pagesVisited + productPerPage).map((product) => (
-      <div className="col-xl-3 col-md-3 mb-3 mt-3 ">
-        <div className="card" style={{ textAlign: 'left', fontSize: '.9rem' }}>
+      <div className="col-xl-2 col-md-2 mb-3 mt-3 ">
+        <Link className="product-link" to={'/product/' + product.productId}>
+        <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width:"10.5rem"}}>
           <img src={product.productImage} className="card-img-top" alt="..." />
           <div className="card-body">
             <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
             <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i className="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
-            <p className="card-text" style={{ textAlignLast: 'justify', }}><span style={{ color: 'grey', textDecoration: 'line-through', fontStyle: 'italic' }}><sup>đ</sup>{product.productOldPrice.toLocaleString("en-US")}</span> &#160;
+            <p className="card-text" style={{ textAlign: 'left'}}>&#160;
               <span style={{ color: 'rgb(255, 38, 0)', fontSize: '1.1rem' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
           </div>
         </div>
+        </Link>
       </div>
     ));
   }
@@ -153,7 +157,7 @@ const Home = () => {
 
 
         <div className="container mt-3" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
-          <div className="pt-3 ps-2 text-secondary" style={{textAlign: 'left'}}> <i className="fa fa-list"></i>&#160; DANH MỤC</div>
+          <div className="pt-3 ps-2 text-secondary" style={{ textAlign: 'left' }}> <i className="fa fa-list"></i>&#160; DANH MỤC</div>
           <div className="row g-4" style={{ paddingBottom: '1rem', paddingTop: '.7rem' }}>
             <div className="col-md-2"><div className="card p-1"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Điện</span> <span>thoại</span> </div><div> <img src="https://i.imgur.com/WgqOgAJ.png" height="87" width="100" /> </div></div></div></div>
             <div className="col-md-2"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Đồng</span> <span>hồ</span> </div><div> <img src=" https://i.imgur.com/NNEPrFe.jpeg" height="80" width="80" /> </div></div></div></div>
@@ -176,15 +180,16 @@ const Home = () => {
 
         <div className="container mt-4 pb-4" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
 
-          <div className="pt-3 ps-2" style={{textAlign: 'left'}}> <span style={{color: 'rgb(255, 94, 0)', fontWeight: 'bold', fontSize: '1.2rem'}}><i className="fa fa-bolt"></i> FLASH SALE</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', marginLeft: '6px', fontSize: '.75rem'}}>00</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', fontSize: '.75rem'}}>{formattedMinutes}</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', fontSize: '.75rem'}}>{formattedSeconds}</span>  </div>
+          <div className="pt-3 ps-2" style={{ textAlign: 'left' }}> <span style={{ color: 'rgb(255, 94, 0)', fontWeight: 'bold', fontSize: '1.2rem' }}><i className="fa fa-bolt"></i> FLASH SALE</span> <span style={{ backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color: 'white', marginLeft: '6px', fontSize: '.75rem' }}>00</span> <span style={{ backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color: 'white', fontSize: '.75rem' }}>{formattedMinutes}</span> <span style={{ backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color: 'white', fontSize: '.75rem' }}>{formattedSeconds}</span>  </div>
 
           <div className="mt-3">
             <Swiper className='ps-9'
               breakpoints={{
-                390: {slidesPerView: 2,},
-                768: {slidesPerView: 3,},
-                820: {slidesPerView: 4,},
-                980: {slidesPerView: 5,},}}
+                390: { slidesPerView: 2, },
+                768: { slidesPerView: 3, },
+                820: { slidesPerView: 4, },
+                980: { slidesPerView: 5, },
+              }}
               modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
               spaceBetween={50} navigation autoplay={{
                 delay: 2500,
@@ -193,7 +198,7 @@ const Home = () => {
               pagination={{ clickable: true }}
               onSwiper={(swiper) => console.log(swiper)}
               onSlideChange={() => console.log('slide change')}
-              style={{"--swiper-navigation-color": "black","--swiper-navigation-size": "16px",}}>
+              style={{ "--swiper-navigation-color": "black", "--swiper-navigation-size": "16px", }}>
               {listFlashSale}
             </Swiper>
           </div>
@@ -203,7 +208,33 @@ const Home = () => {
         {/* -------------------------------------------------FLASH SALE---------------------------------------------------------------- */}
         {/* -------------------------------------------------FLASH SALE---------------------------------------------------------------- */}
 
-          <div className="container pt-5"> </div>
+        <div className="container mt-3 pb-2" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
+          <div className="pt-3 ps-2" style={{ textAlign: 'left' }}> <span style={{ color: 'rgb(255, 94, 0)', fontWeight: 'bold', fontSize: '1.2rem', borderBottom: '2px solid rgb(255, 94, 0)', padding: '5px' }}><i class="fas fa-layer-group"></i> SẢN PHẨM HÔM NAY</span>  </div>
+        </div>
+
+        <div className="container mt-2 pb-2" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
+          <div className="row">
+            <div>
+              <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+            </div>
+            {listProduct}
+          </div>
+        </div>
+
+        {/* -------------------------------------------------TODAY PRODUCT---------------------------------------------------------------- */}
+        {/* -------------------------------------------------TODAY PRODUCT---------------------------------------------------------------- */}
+
+        <div className="container pt-5"> </div>
 
       </div>
     </>

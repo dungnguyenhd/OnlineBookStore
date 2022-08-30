@@ -39,7 +39,7 @@ function ProductDetail() {
   else{
     listComment = (
       <>
-        Sản phẩm chưa có đánh giá nào
+        Sản phẩm hiện chưa có đánh giá nào
       </>
     )
   }
