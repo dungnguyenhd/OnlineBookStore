@@ -13,6 +13,7 @@ import authService from "./services/auth.service";
 import { useEffect, useState } from "react";
 import './App.css';
 import PersonalStore from "./pages/PersonalStore";
+import StoreAdmin from "./pages/StoreAdmin";
 
 export const UserContext = createContext();
 
@@ -140,7 +141,7 @@ function App() {
 
                     {stateLogin.currentUser && (
                       <>
-                          <Link to='/store' className="nav-link text-light">
+                          <Link to='/storeAdmin' className="nav-link text-light">
                             | &#160; Cửa hàng
                           </Link>
                       </>
@@ -160,7 +161,7 @@ function App() {
                             className="nav-link text-light"
                             onClick={() => logout()}
                           >
-                            LogOut
+                            | &#160;Đăng xuất
                           </Link>
                         </li>
                       </div>
@@ -168,13 +169,13 @@ function App() {
                       <div className="navbar-nav ml-auto ms-auto">
                         <li className="nav-item text-light">
                           <Link to="/login" className="nav-link text-light">
-                            Login &#160; |
+                            Đăng nhập &#160; |
                           </Link>
                         </li>
 
                         <li className="nav-item text-light">
                           <Link to="/register" className="nav-link text-light">
-                            Register
+                            Đăng kí
                           </Link>
                         </li>
 
@@ -221,6 +222,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/store" element={<PersonalStore/>}/>
+        <Route path="/storeAdmin" element={<StoreAdmin/>}/>
       </Routes>
       </UserContext.Provider>
       

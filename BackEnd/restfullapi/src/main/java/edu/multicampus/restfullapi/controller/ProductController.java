@@ -78,7 +78,7 @@ public class ProductController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id) {
 		Optional<Product> ProductData = productRepository.findById(id);
@@ -152,12 +152,24 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/getAmount")
-	public ResponseEntity<Integer> getStudentScoreAvg(@Param("storeId")Integer storeId){
+	public ResponseEntity<Integer> getProductByStore(@Param("storeId")Integer storeId){
 		try {
 			List<Product> list = new ArrayList<Product>();
 					list = productRepository.getProductByStore(storeId);
 					int pAmount = list.size();
 		return new ResponseEntity<>(pAmount, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
+	@GetMapping("/products/getProductByStoreSearch")
+	public ResponseEntity<List<Product>> getProductByStoreSearch(@Param("storeId") Integer storeId, @Param("productName") String productName ){
+		try {
+			List<Product> list = new ArrayList<Product>();
+			list = productRepository.getProductByStoreSearch(storeId, productName);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 		}
 		catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);

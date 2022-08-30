@@ -5,7 +5,7 @@ import StoreService from "../services/StoreService";
 import { Link, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
-export default function PersonalStore() {
+export default function StoreAdmin() {
     const getUser = useContext(UserContext);
     const [store, setStore] = useState({});
     const [product, setProduct] = useState([]);
@@ -91,6 +91,7 @@ export default function PersonalStore() {
                                     <div className="d-flex justify-content-between align-items-center p-2">
                                         <div className="ps-2"> <img src={store.storeImageURL} className="img-fluid rounded-circle" style={{ width: '100px', border: '5px solid lightgrey' }} /> </div>
                                         <div className="flex-column lh-1 imagename pe-2"> <span className="h5">{store.storeName}</span> <br></br> <span>{store.storePhone}</span> </div>
+                                        <div> <button> Quản lí sản phẩm </button> </div>
                                     </div>
                                 </div>
                             </div>

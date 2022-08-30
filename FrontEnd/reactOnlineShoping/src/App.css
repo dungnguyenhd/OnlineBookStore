@@ -46,47 +46,53 @@
 }
 
 .paginationBttns {
-  width: 80%;
-  height: 40px;
+  /* width: 80%; */
+  /* height: 40px; */
   list-style-type: none;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   text-decoration: none;
-  padding: 20px 0;
+  /* padding: 20px 0; */
+}
+
+ul.paginationBttns{
+  padding: 0px;
+  padding-top: 10px;
+  margin: 0;
+  text-align: right;
 }
 
 .paginationBttns a {
-  padding: 15px;
-  margin: 8px;
-  border-radius: 15px;
-  border: 1px solid rgb(34, 99, 221);
-  color: rgb(34, 99, 221)
+  padding: 5px;
+  margin: 3px;
+  color: rgb(34, 99, 221);
+  text-decoration: none;
 }
 
 .paginationBttns a:hover {
-  background-color: blue;
-
+  color: red;
 }
 
 .paginationActive {
-  color: red;
+  color: rgb(255, 94, 0);
 
 }
 
-.button-plus:hover {
+
+/* .button-plus:hover {
   background-color: #fd7e14 !important;
 }
 
 .button-minus:hover {
   background-color: #990000 !important;
-}
+} */
 
 .body{
-  font-family: Helvetica Neue,Helvetica,Arial,文泉驛正黑,WenQuanYi Zen Hei,Hiragino Sans GB,儷黑 Pro,LiHei Pro,Heiti TC,微軟正黑體,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
 .header{
-  font-family: Helvetica Neue,Helvetica,Arial,文泉驛正黑,WenQuanYi Zen Hei,Hiragino Sans GB,儷黑 Pro,LiHei Pro,Heiti TC,微軟正黑體,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
 .scrollbar {
@@ -131,7 +137,7 @@ input {
 }
 
 .navbar {
-  background-color: rgb(13, 118, 174);
+  background-color: rgba(13, 118, 174, 0.968);
 }
 
 .home {

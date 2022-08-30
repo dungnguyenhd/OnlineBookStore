@@ -101,7 +101,7 @@ export default function Profile() {
                                     <div className="row">
                                         <div className="col-sm-12">
                                             <button className="btn btn-info "> <i className="fas fa-save"></i> Lưu thông tin</button>
-                                            <Link to='/store'><button className="btn btn-danger ms-2 "> <i className="fas fa-store"></i> Cửa hàng của tôi</button></Link>
+                                            <Link to='/storeAdmin'><button className="btn btn-danger ms-2 "> <i className="fas fa-store"></i> Cửa hàng của tôi</button></Link>
                                         </div>
                                     </div>
                                 </div>
