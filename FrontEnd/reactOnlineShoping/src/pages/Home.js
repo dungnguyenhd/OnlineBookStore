@@ -15,7 +15,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
-  
+
   const min = 1;
   const max = 60;
   var timer;
@@ -77,6 +77,7 @@ const Home = () => {
       if (minutes>=0 && !product.productStatus) {
         return (
           <SwiperSlide key={product.productId}>
+            <Link className="product-link" to={'/product/'+product.productId}>
             <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }}>
               <img src={product.productImage} className="card-img-top" alt="..." />
               <div className="card-body">
@@ -86,6 +87,7 @@ const Home = () => {
                   <span style={{ color: 'rgb(255, 38, 0)', fontSize: '.9rem' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
               </div>
             </div>
+            </Link>
           </SwiperSlide>
         )
       }
@@ -147,8 +149,11 @@ const Home = () => {
         {/* ------------------------------------CAROUSEL------------------------------------ */}
         {/* ------------------------------------CAROUSEL------------------------------------ */}
 
-        <div className="container mt-4" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
-          <div className="pt-3 ps-2 text-secondary" style={{textAlign: 'left'}}> <i class="fa fa-list"></i>&#160; DANH MỤC</div>
+        <div className="container mt-3"><img src="https://cf.shopee.vn/file/3bd07c36ac8112697c5c0a44c620a838" width='100%'></img></div>
+
+
+        <div className="container mt-3" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
+          <div className="pt-3 ps-2 text-secondary" style={{textAlign: 'left'}}> <i className="fa fa-list"></i>&#160; DANH MỤC</div>
           <div className="row g-4" style={{ paddingBottom: '1rem', paddingTop: '.7rem' }}>
             <div className="col-md-2"><div className="card p-1"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Điện</span> <span>thoại</span> </div><div> <img src="https://i.imgur.com/WgqOgAJ.png" height="87" width="100" /> </div></div></div></div>
             <div className="col-md-2"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Đồng</span> <span>hồ</span> </div><div> <img src=" https://i.imgur.com/NNEPrFe.jpeg" height="80" width="80" /> </div></div></div></div>
@@ -169,9 +174,9 @@ const Home = () => {
         {/* ------------------------------------------------CATAGORIES----------------------------------------------------- */}
         {/* ------------------------------------------------CATAGORIES----------------------------------------------------- */}
 
-        <div className="container mt-4" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
+        <div className="container mt-4 pb-4" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
 
-          <div className="pt-3 ps-2" style={{textAlign: 'left'}}> <span style={{color: 'rgb(255, 94, 0)', fontWeight: 'bold', fontSize: '1.2rem'}}><i class="fa fa-bolt"></i> FLASH SALE</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', marginLeft: '6px', fontSize: '.75rem'}}>00</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', fontSize: '.75rem'}}>{formattedMinutes}</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', fontSize: '.75rem'}}>{formattedSeconds}</span>  </div>
+          <div className="pt-3 ps-2" style={{textAlign: 'left'}}> <span style={{color: 'rgb(255, 94, 0)', fontWeight: 'bold', fontSize: '1.2rem'}}><i className="fa fa-bolt"></i> FLASH SALE</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', marginLeft: '6px', fontSize: '.75rem'}}>00</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', fontSize: '.75rem'}}>{formattedMinutes}</span> <span style={{backgroundColor: 'rgb(4, 4, 97)', padding: '3px', color:'white', fontSize: '.75rem'}}>{formattedSeconds}</span>  </div>
 
           <div className="mt-3">
             <Swiper className='ps-9'
@@ -197,6 +202,8 @@ const Home = () => {
 
         {/* -------------------------------------------------FLASH SALE---------------------------------------------------------------- */}
         {/* -------------------------------------------------FLASH SALE---------------------------------------------------------------- */}
+
+          <div className="container pt-5"> </div>
 
       </div>
     </>

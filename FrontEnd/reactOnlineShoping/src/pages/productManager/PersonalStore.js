@@ -1,27 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../App";
-import ProductServices from "../services/ProductServices";
-import StoreService from "../services/StoreService";
-import { Link, useNavigate } from "react-router-dom";
+import {useEffect, useState } from "react";
+import ProductServices from "../../services/ProductServices";
+import StoreService from "../../services/StoreService";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 export default function PersonalStore() {
-    const getUser = useContext(UserContext);
     const [store, setStore] = useState({});
     const [product, setProduct] = useState([]);
     const [productAmount, setProductAmount] = useState(null);
-    const navigate = useNavigate();
     const [pageNumber, setPageNumber] = useState(0);
+    const navigate = useNavigate();
+    const params = useParams();
 
     useEffect(() => {
-        if (getUser.length !== 0) {
-            StoreService.getStoreByUser(getUser.id).then((res) => {
+            StoreService.getStoreById(params.storeId).then((res)=>{
                 setStore(res.data);
+                ProductServices.getStoreProduct(res.data.storeId).then((res) => {
+                    setProduct(res.data);
+                })
+                ProductServices.getProductByStore(res.data.storeId).then((res) => {
+                    setProductAmount(res.data);
+                });
             })
-            ProductServices.getStoreProduct(store.storeId).then((res) => {
-                setProduct(res.data);
-            })
-        }
     }, []);
 
     const productPerPage = 8;
@@ -65,7 +65,7 @@ export default function PersonalStore() {
         ));
     }
 
-    if (store.length === 0 && getUser.length !== 0) {
+    if (store.length === 0) {
         return (
             <>
                 <h1> Có vẻ như bạn chưa có cửa hàng nào </h1>
@@ -73,13 +73,7 @@ export default function PersonalStore() {
             </>
         )
     }
-    else if (getUser.length === 0) {
-        navigate("/login");
-    }
     else {
-        ProductServices.getProductByStore(store.storeId).then((res) => {
-            setProductAmount(res.data);
-        });
         return (
             <>
                 <div style={{ backgroundColor: 'rgb(246, 239, 239)' }}>

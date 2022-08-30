@@ -39,6 +39,10 @@ class ProductServices{
     getProductByStore(product){
         return axios.get(PRODUCT_API_BASE_URL + '/getAmount?storeId=' + product);
     }
+
+    getProductByStoreSearch(storeId, productName){
+        return axios.get(PRODUCT_API_BASE_URL + '/getProductByStoreSearch?storeId='+storeId+ '&productName=' + productName)
+    }
 }
 
 export default new ProductServices();

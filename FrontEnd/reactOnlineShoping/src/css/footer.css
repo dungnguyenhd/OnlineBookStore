@@ -5,8 +5,9 @@
 
 
 .footer-body {
-    background-color: #D19527;
+    background-color: #ffffff;
     list-style: none;
+    border-top: 4px solid red;
 }
 
 .menu-item a {

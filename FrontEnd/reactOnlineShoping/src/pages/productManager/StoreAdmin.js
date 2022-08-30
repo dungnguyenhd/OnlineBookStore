@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../App";
-import ProductServices from "../services/ProductServices";
-import StoreService from "../services/StoreService";
+import { UserContext } from "../../App";
+import ProductServices from "../../services/ProductServices";
+import StoreService from "../../services/StoreService";
 import { Link, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
@@ -17,6 +17,9 @@ export default function StoreAdmin() {
         if (getUser.length !== 0) {
             StoreService.getStoreByUser(getUser.id).then((res) => {
                 setStore(res.data);
+                ProductServices.getProductByStore(res.data.storeId).then((res) => {
+                    setProductAmount(res.data);
+                });
             })
             ProductServices.getStoreProduct(store.storeId).then((res) => {
                 setProduct(res.data);
@@ -52,6 +55,7 @@ export default function StoreAdmin() {
     if (product.length !== 0) {
         listProduct = product.slice(pagesVisited, pagesVisited + productPerPage).map((product) => (
             <div className="col-xl-3 col-md-3 mb-3 mt-1 " key={product.productId}>
+                <Link className="product-link" to={'/product/'+product.productId}>
                 <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.5rem' }}>
                     <img src={product.productImage} className="card-img-top" alt="..." />
                     <div className="card-body">
@@ -61,6 +65,7 @@ export default function StoreAdmin() {
                             <span style={{ color: 'rgb(255, 38, 0)', fontSize: '1rem' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
                     </div>
                 </div>
+                </Link>
             </div>
         ));
     }
@@ -77,9 +82,6 @@ export default function StoreAdmin() {
         navigate("/login");
     }
     else {
-        ProductServices.getProductByStore(store.storeId).then((res) => {
-            setProductAmount(res.data);
-        });
         return (
             <>
                 <div style={{ backgroundColor: 'rgb(246, 239, 239)' }}>
@@ -90,8 +92,7 @@ export default function StoreAdmin() {
                                 <div className="card p-1" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb")' }}>
                                     <div className="d-flex justify-content-between align-items-center p-2">
                                         <div className="ps-2"> <img src={store.storeImageURL} className="img-fluid rounded-circle" style={{ width: '100px', border: '5px solid lightgrey' }} /> </div>
-                                        <div className="flex-column lh-1 imagename pe-2"> <span className="h5">{store.storeName}</span> <br></br> <span>{store.storePhone}</span> </div>
-                                        <div> <button> Quản lí sản phẩm </button> </div>
+                                        <div className="flex-column lh-1 imagename pe-2"> <span className="h5">{store.storeName}</span> <br></br> <span>{store.storeAddress}</span> <br/><br/> <Link to='/productManager' style={{paddingTop: '3px'}}><button className="btn btn-info" style={{padding: '3px'}}> Quản lí sản phẩm </button></Link> </div>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +109,7 @@ export default function StoreAdmin() {
                             <div className="col-md-3">
                                 <div> <p style={{ textAlign: 'left' }}> <i className="fa fa-user-check"></i> Đang theo: <span className="text-danger">5</span>  </p>
                                     <p style={{ textAlign: 'left' }}> <i className="fa fa-comment"></i> Tỉ lệ phản hồi:  <span className="text-danger">200</span>  </p>
-                                    <p style={{ textAlign: 'left' }}> <i className="fa fa-users"></i> Tham gia:  <span className="text-danger">29/08/2022</span> </p>
+                                    <p style={{ textAlign: 'left' }}> <i className="fa fa-phone"></i> Liên hệ:  <span className="text-danger">{store.storePhone}</span> </p>
                                 </div>
                             </div>
 

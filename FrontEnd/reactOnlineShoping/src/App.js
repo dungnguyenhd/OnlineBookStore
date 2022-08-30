@@ -1,19 +1,23 @@
 import React, { createContext } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { AnimatedInput } from "./common/searchScript";
+//----------------common---------------------------
+import eventBus from "./common/EventBus";
+import { Link } from "react-router-dom";
+import authService from "./services/auth.service";
+// -----------------css----------------------------
+import './App.css';
+//------------------pages---------------------------
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Footer from './components/Footer';
 import HomeMain from './pages/Home';
 import Profile from "./pages/Profile";
-import { AnimatedInput } from "./common/searchScript";
-// import AuthVerify from "./common/auth-verify";
-import eventBus from "./common/EventBus";
-import { Link } from "react-router-dom";
-import authService from "./services/auth.service";
-import { useEffect, useState } from "react";
-import './App.css';
-import PersonalStore from "./pages/PersonalStore";
-import StoreAdmin from "./pages/StoreAdmin";
+import PersonalStore from "./pages/productManager/PersonalStore";
+import StoreAdmin from "./pages/productManager/StoreAdmin";
+import ProductManager from "./pages/productManager/ProductManager";
+import ProductDetail from "./pages/productManager/ProductDetail";
 
 export const UserContext = createContext();
 
@@ -144,6 +148,10 @@ function App() {
                           <Link to='/storeAdmin' className="nav-link text-light">
                             | &#160; Cửa hàng
                           </Link>
+
+                          <Link to='/addProduct' className="nav-link text-light">
+                            | &#160; Đăng bán
+                          </Link>
                       </>
                     )}
                   </ul>
@@ -201,7 +209,7 @@ function App() {
                 <span>
 
                   <form className="d-flex ms-auto me-auto">
-                    <AnimatedInput className='form-control me-2' style={{ width: '350px' }} placeholder="Search something...type here...example: hello world" aria-label="Search" />
+                    <AnimatedInput className='form-control me-2' style={{ width: '350px' }} placeholder="Bạn muốn tìm gì ?... áo thun, áo hoodie,..........iphone, samsung........" aria-label="Search" />
                     <button type="button" className="btn btn-primary">
                       <i className="fa fa-search"></i>
                     </button>
@@ -216,13 +224,15 @@ function App() {
 
       <UserContext.Provider value={stateLogin.currentUser}>
       <Routes>
-
         <Route exact path="/*" element={<HomeMain />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/store" element={<PersonalStore/>}/>
+        <Route path="/productManager" element={<ProductManager/>}/>
         <Route path="/storeAdmin" element={<StoreAdmin/>}/>
+        <Route path="/store/:storeId" element={<PersonalStore/>}/>
+        <Route path="/product/:productId" element={<ProductDetail/>}/>
       </Routes>
       </UserContext.Provider>
       
