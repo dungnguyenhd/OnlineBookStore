@@ -34,7 +34,7 @@ export default function PersonalStore() {
         )
     }
 
-    const productPerPage = 5;
+    const productPerPage = 8;
     const pagesVisited = pageNumber * productPerPage;
 
     const pageCount = Math.ceil(product.length / productPerPage)
@@ -61,12 +61,14 @@ export default function PersonalStore() {
     var listProduct = [];
     if (product.length !== 0) {
         listProduct = product.slice(pagesVisited, pagesVisited + productPerPage).map((product) => (
-            <div class="col-xl-2 col-md-2 mb-3 mt-3">
-                <div className="card">
-                    <img src={product.productImage} className="card-img-top" alt="..." />
+            <div class="col-xl-3 col-md-3 mb-3 mt-3 ">
+                <div className="card" style={{textAlign: 'left',fontSize: '.9rem', width: '12.5rem'}}>
+                    <img src={product.productImage} className="card-img-top" alt="..."/>
                     <div className="card-body">
-                        <h5 className="card-title">{product.productName}</h5>
-                        <p className="card-text"> <span>{product.productOldPrice}</span>  <span>{product.productNewPrice}</span> </p>
+                    <p className="card-title textOverflow " style={{textTransform: 'uppercase',  textAlignLast: 'justify', }}>{product.productName}</p>
+                    <p><span  style={{backgroundColor: '#26aa99', padding:'3px', fontSize:'.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)'}}> <i class="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
+                        <p className="card-text" style={{textAlignLast: 'justify', }}><span style={{color:'grey', textDecoration: 'line-through',fontStyle: 'italic', fontSize: '.9rem'}}><sup>đ</sup>{product.productOldPrice.toLocaleString("en-US")}</span> &#160;
+                         <span style={{color:'rgb(255, 38, 0)', fontSize: '1rem'}}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
                     </div>
                 </div>
             </div>

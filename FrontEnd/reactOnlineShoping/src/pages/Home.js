@@ -1,16 +1,100 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
+import ProductServices from "../services/ProductServices";
+
 
 const Home = () => {
+
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [pageNumber, setPageNumber] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(20);
+
+  var timer;
+  useEffect(()=>{
+    if(minutes >=0){
+    timer = setInterval(()=>{
+      setSeconds(seconds-1);
+
+      if(seconds===0){
+        setMinutes(minutes-1);
+        setSeconds(60);
+      }
+    },1000)
+    return () => clearInterval(timer);
+  }
+  else{
+
+  }
+  },[seconds])
+
+  useEffect(() => {
+    ProductServices.getAllProducts(searchTerm).then((res) => {
+      setProducts(res.data);
+    })
+  }, [searchTerm]);
+
+  const productPerPage = 8;
+  const pagesVisited = pageNumber * productPerPage;
+
+  const pageCount = Math.ceil(products.length / productPerPage)
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  }
+
+  var listFlashSale = [];
+
+  if (products.length !== null) {
+    listFlashSale = products.map((product) => {
+      if (!product.productStatus) {
+        return (
+          <SwiperSlide>
+            <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }}>
+              <img src={product.productImage} className="card-img-top" alt="..." />
+              <div className="card-body">
+                <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
+                <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i class="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
+                <p className="card-text" style={{ textAlignLast: 'justify', }}><span style={{ color: 'grey', textDecoration: 'line-through', fontStyle: 'italic',fontSize: '.8rem' }}><sup>đ</sup>{product.productOldPrice.toLocaleString("en-US")}</span> &#160;
+                  <span style={{ color: 'rgb(255, 38, 0)', fontSize: '.9rem' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
+              </div>
+            </div>
+          </SwiperSlide>
+        )
+      }
+    })
+  }
+
+  var listProduct = [];
+
+  if (products.length !== null) {
+    listProduct = products.slice(pagesVisited, pagesVisited + productPerPage).map((product) => (
+      <div class="col-xl-3 col-md-3 mb-3 mt-3 ">
+        <div className="card" style={{ textAlign: 'left', fontSize: '.9rem' }}>
+          <img src={product.productImage} className="card-img-top" alt="..." />
+          <div className="card-body">
+            <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
+            <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i class="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
+            <p className="card-text" style={{ textAlignLast: 'justify', }}><span style={{ color: 'grey', textDecoration: 'line-through', fontStyle: 'italic' }}><sup>đ</sup>{product.productOldPrice.toLocaleString("en-US")}</span> &#160;
+              <span style={{ color: 'rgb(255, 38, 0)', fontSize: '1.1rem' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> </p>
+          </div>
+        </div>
+      </div>
+    ));
+  }
+  else {
+    return (
+      <h1> NO PRODUCT </h1>
+    )
+  }
+
   return (
     <>
       <div className="home">
@@ -175,9 +259,9 @@ const Home = () => {
 
         <div className="container mt-4" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
 
-          <div className="pt-3 ps-2 text-secondary"> FLASH SALE</div>
+          <div className="pt-3 ps-2 text-secondary" style={{textAlign: 'left'}}> FLASH SALE {minutes}:{seconds} </div>
 
-          <div>
+          <div className="mt-3">
             <Swiper className='ps-9'
               breakpoints={{
                 390: {
@@ -205,17 +289,7 @@ const Home = () => {
                 "--swiper-navigation-size": "16px",
               }}
             >
-              <SwiperSlide><img src='https://www.leaderim.com/wp-content/uploads/2020/02/Partner-logo-2016.png' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://www.pngfind.com/pngs/m/683-6836144_cisco-partner-logo-cisco-partner-logo-vector-hd.png' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://thumbs.dreamstime.com/b/partner-logo-design-ai-supported-81271814.jpg' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIXfIvUx5yLhleD_vSTSP6NTY0HoYy1YwHVi6mnCNQ93UdwoKnTbO5EWDJAGyMk_loSIA&usqp=CAU' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://us.123rf.com/450wm/nakigitsune111/nakigitsune1111806/nakigitsune111180600285/103380642-the-logo-between-the-letter-s-and-letter-o-or-so-with-a-certain-distance-and-connected-by-orange-and.jpg?ver=6' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-R9fTatXZD2vZGInGIbNCwGeL0KxF-HkkQYaH8_p3yuKbVVg7vw6iavRqRod9lkVf5lg&usqp=CAU' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://allvectorlogo.com/img/2016/10/sap-partner-logo.png' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://www.seekpng.com/png/detail/209-2091194_rheem-pro-partner-logo.png' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjFJ4p95Vx4W9CWNldLVkcLmDwFl15SSGzjg&usqp=CAU' height={70} /></SwiperSlide>
-              <SwiperSlide><img src='https://findlogovector.com/wp-content/uploads/2019/10/business-integration-partners-bip-logo-vector.png' height={70} /></SwiperSlide>
-              <br />
+              {listFlashSale}
             </Swiper>
           </div>
 
@@ -225,7 +299,7 @@ const Home = () => {
         {/* -------------------------------------------------FLASH SALE---------------------------------------------------------------- */}
 
 
-              
+
 
       </div>
     </>

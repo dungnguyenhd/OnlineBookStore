@@ -81,6 +81,14 @@
   background-color: #990000 !important;
 }
 
+.body{
+  font-family: Helvetica Neue,Helvetica,Arial,文泉驛正黑,WenQuanYi Zen Hei,Hiragino Sans GB,儷黑 Pro,LiHei Pro,Heiti TC,微軟正黑體,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
+}
+
+.header{
+  font-family: Helvetica Neue,Helvetica,Arial,文泉驛正黑,WenQuanYi Zen Hei,Hiragino Sans GB,儷黑 Pro,LiHei Pro,Heiti TC,微軟正黑體,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
+}
+
 .scrollbar {
   overflow-y: scroll;
   height: 140px;
@@ -145,7 +153,7 @@ input {
 }
 
 .dropbtn {
-  background-color: rgb(255, 255, 255) ;
+  background-color: rgb(255, 255, 255);
   margin-top: .4rem;
   padding: 4px;
   margin-left: 10px;
@@ -164,9 +172,10 @@ input {
   background-color: #f1f1f1;
   min-width: 160px;
   font-size: 15px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
+
 
 .dropdown-content a {
   color: black;
@@ -175,6 +184,20 @@ input {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;color: rgb(255, 68, 0);}
+.dropdown-content a:hover {
+  background-color: #ddd ;
+  color: rgb(255, 68, 0);
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.textOverflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+          line-clamp: 2; 
+  -webkit-box-orient: vertical;
+}
