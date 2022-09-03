@@ -1,26 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import ProductServices from '../../services/ProductServices';
 import { useParams, useNavigate, Link } from "react-router-dom";
 import StoreService from '../../services/StoreService';
 import CustomerOrderService from '../../services/CusOrderService';
+import { useDispatch } from 'react-redux';
+import { ADD } from '../redux/action';
+import { UserContext } from "../../App";
 
 function ProductDetail() {
-
+  const getUser = useContext(UserContext);
   const params = useParams();
   const [product, setProduct] = useState(null);
   const [store, setStore] = useState({});
   const [comment, setComment] = useState([]);
   let navigate = useNavigate();
 
+  const dispatch = useDispatch();
+  const send = (e) => {
+    if(getUser){
+    dispatch(ADD(e));
+  }
+  else{
+    navigate("/login");
+  }
+  }
+
   useEffect(() => {
-    ProductServices.getProductById(params.productId).then((response) => {
+    ProductServices.getProductById(params.id).then((response) => {
       setProduct(response.data);
       let data = { ...response.data };
       let data2 = { ...data.store }
       StoreService.getStoreById(data2.storeId).then((res) =>{
         setStore(res.data)
       })
-      CustomerOrderService.getAllComments(params.productId).then((res)=>{
+      CustomerOrderService.getAllComments(params.id).then((res)=>{
         setComment(res.data);
       })
     });
@@ -46,16 +59,15 @@ function ProductDetail() {
 
   if (product != null) {
     return (
-      <>
         <div style={{ backgroundColor: 'rgb(246, 239, 239)' }}>
           <div className='container pt-2 pb-2' style={{ textAlign: 'left' }}> <Link to={'/'} className='product-link'>Shopdee</Link> &gt; <Link to={'/catagory' + product.productType} className='product-link'>{product.productType}</Link>  &gt; {product.productName} </div>
           <div className='container pb-3' style={{ backgroundColor: 'white', borderRadius: '2px' }}>
             <div className='row'>
-              <div className='col-6 pt-3'>
+              <div className='col-md-6 pt-3'>
                 <img src={product.productImage} className='img-fluid img-thumbnail' />
               </div>
 
-              <div className='col-6 pt-3'>
+              <div className='col-md-6 pt-3'>
                 <div className='pt-1' style={{ textAlign: 'left' }}> <span style={{ backgroundColor: '#fd4614', padding: '1px', borderRadius: '3px', fontSize: '.8rem', color: 'white' }}> Yêu thích </span>
                   <span style={{ paddingLeft: '10px', fontSize: '1.3rem' }}> {product.productName.toUpperCase()} </span>
                 </div>
@@ -67,9 +79,8 @@ function ProductDetail() {
                     <span style={{ color: 'rgb(255, 38, 0)', fontSize: '1.4rem', fontWeight: 'bold', paddingLeft: '5px' }}><sup>đ</sup>{product.productNewPrice.toLocaleString("en-US")}</span> <span style={{ backgroundColor: '#fd4614', padding: '3px', borderRadius: '3px', fontSize: '.8rem', color: 'white', fontWeight: 'bold', marginLeft: '5px' }}>{Math.floor(product.productOldPrice / product.productNewPrice)}% GIẢM</span> </p>
                   <p style={{ textAlign: 'left', paddingLeft: '17px', color: 'rgb(18, 160, 236)' }}> <i className="fa fa-hand-holding-usd"></i> Cam kết giá tốt nhất thị trường! </p>
                 </div>
-
                 <div className='row pt-3' style={{ textAlign: 'left', paddingLeft: '5px' }}>
-                  <div className='col-md-3' style={{ color: 'gray' }}> <p>Bảo hiểm</p>  <p> Vận chuyển </p> <p> Từ </p> <p> Kho </p> </div>
+                  <div className='col-md-3 d-none d-sm-block d-md-block' style={{ color: 'gray' }}> <p>Bảo hiểm</p>  <p> Vận chuyển </p> <p> Từ </p> <p> Kho </p> </div>
                   <div className='col-md-9'> <p> Bảo hiểm {product.productType} <span style={{ fontSize: '.9rem', color: 'rgb(18, 160, 236)' }}> &#160; Tìm hiểu thêm </span>  </p>
                     <p> <i className="fa fa-shipping-fast"></i>&#160; Hỗ trợ shipping toàn quốc </p>
                     <p> {product.productAddress} </p>
@@ -77,8 +88,8 @@ function ProductDetail() {
                   </div>
                 </div>
 
-                <div className='pt-3' style={{ textAlign: 'left' }}>
-                  <button className='btn btn-outline-danger p-3'> <i className="fa fa-cart-arrow-down"></i> Thêm vào giỏ hàng </button>
+                <div className='pt-3' style={{ textAlign: 'left' }} key={product.productId}>
+                  <button className='btn btn-outline-danger p-3' onClick={() => send(product)}> <i className="fa fa-cart-arrow-down"></i> Thêm vào giỏ hàng </button>
                   &#160;&#160;&#160;
                   <button className='btn btn-danger p-3'> <i className="fa fa-bags-shopping"></i> Mua ngay </button>
                 </div>
@@ -132,7 +143,6 @@ function ProductDetail() {
 
           <div className='pt-5'></div>
         </div>
-      </>
     );
   } else {
     return (<><h1>Error 404</h1></>);

@@ -11,7 +11,6 @@ import 'swiper/css/autoplay';
 
 import ProductServices from "../services/ProductServices";
 
-
 const Home = () => {
 
   const [products, setProducts] = useState([]);
@@ -80,7 +79,7 @@ const Home = () => {
         return (
           <SwiperSlide key={product.productId}>
             <Link className="product-link" to={'/product/' + product.productId}>
-              <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }}>
+              <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }} >
                 <img src={product.productImage} className="card-img-top" alt="..." />
                 <div className="card-body">
                   <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
@@ -100,7 +99,7 @@ const Home = () => {
 
   if (products.length !== null) {
     listProduct = products.slice(pagesVisited, pagesVisited + productPerPage).map((product) => (
-      <div className="col-xl-2 col-md-2 mb-3 mt-3 ">
+      <div className="col-xl-2 col-md-2 mb-3 mt-3 " key={product.productId}>
         <Link className="product-link" to={'/product/' + product.productId}>
         <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width:"10.5rem"}}>
           <img src={product.productImage} className="card-img-top" alt="..." />
@@ -209,7 +208,7 @@ const Home = () => {
         {/* -------------------------------------------------FLASH SALE---------------------------------------------------------------- */}
 
         <div className="container mt-3 pb-2" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
-          <div className="pt-3 ps-2" style={{ textAlign: 'left' }}> <span style={{ color: 'rgb(255, 94, 0)', fontWeight: 'bold', fontSize: '1.2rem', borderBottom: '2px solid rgb(255, 94, 0)', padding: '5px' }}><i class="fas fa-layer-group"></i> SẢN PHẨM HÔM NAY</span>  </div>
+          <div className="pt-3 ps-2" style={{ textAlign: 'left' }}> <span style={{ color: 'rgb(255, 94, 0)', fontWeight: 'bold', fontSize: '1.2rem', borderBottom: '2px solid rgb(255, 94, 0)', padding: '5px' }}><i className="fas fa-layer-group"></i> SẢN PHẨM HÔM NAY</span>  </div>
         </div>
 
         <div className="container mt-2 pb-2" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>

@@ -55,7 +55,7 @@
   /* padding: 20px 0; */
 }
 
-ul.paginationBttns{
+ul.paginationBttns {
   padding: 0px;
   padding-top: 10px;
   margin: 0;
@@ -87,12 +87,12 @@ ul.paginationBttns{
   background-color: #990000 !important;
 } */
 
-.body{
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+.body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-.header{
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+.header {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .scrollbar {
@@ -107,7 +107,7 @@ ul.paginationBttns{
 
 /* Track */
 .scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1  ;
+  background: #f1f1f1;
 }
 
 /* Handle */
@@ -117,7 +117,7 @@ ul.paginationBttns{
 
 /* Handle on hover */
 .scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #fd7e14 ;
+  background: #fd7e14;
 }
 
 input {
@@ -137,7 +137,13 @@ input {
 }
 
 .navbar {
-  background-color: rgba(13, 118, 174, 0.968)  ;
+  background-color: rgba(13, 118, 174, 0.968);
+}
+
+.searchBar {
+  background-color: rgba(13, 118, 174, 0.968);
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
 }
 
 .home {
@@ -191,7 +197,7 @@ input {
 }
 
 .dropdown-content a:hover {
-  background-color: #ddd ;
+  background-color: #ddd;
   color: rgb(255, 68, 0);
 }
 
@@ -203,11 +209,70 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-          line-clamp: 2; 
+  -webkit-line-clamp: 2;
+  /* number of lines to show */
+  line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
-.product-link{
+.product-link {
   text-decoration: none;
+}
+
+@keyframes slideIn {
+  0% {
+    /* transform: translateY(1rem); */
+    opacity: 0;
+  }
+
+  100% {
+    /* transform: translateY(0rem); */
+    opacity: 1;
+  }
+
+  0% {
+    /* transform: translateY(0.2rem); */
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .animate {
+    animation-duration: 0.5s;
+    -webkit-animation-duration: 0.5s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    -webkit-transform: transform;
+    -webkit-opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    -webkit-opacity: 1;
+  }
+
+  0% {
+    -webkit-transform: translateY(1rem);
+    -webkit-opacity: 0;
+  }
+}
+
+.slideIn {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+}
+
+.text-name{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

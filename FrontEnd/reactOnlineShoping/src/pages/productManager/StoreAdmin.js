@@ -78,7 +78,7 @@ export default function StoreAdmin() {
             </>
         )
     }
-    else if (getUser.length === 0) {
+    else if (!getUser) {
         navigate("/login");
     }
     else {

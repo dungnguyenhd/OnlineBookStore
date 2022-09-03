@@ -95,7 +95,6 @@ public class ProductController {
 		try {
 //			Product Product = ProductRepository.save(new Product(Product.getProductTitle(), Product.getProductDate(), Product.getProductTotalMoney(), Product.getEmployee(), Product.getCustomer()));
 //			return new ResponseEntity<>(Product, HttpStatus.CREATED);
-
 			Optional<Store> store = storeRepository.findById(product.getStore().getStoreId());
 
 			if (store.isPresent()) {
