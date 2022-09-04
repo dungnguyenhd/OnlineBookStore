@@ -22,6 +22,8 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 import { DLT } from "./pages/redux/action";
 import Cart from "./pages/Cart";
 import AddNewProduct from "./pages/productManager/AddNewProduct";
+import EditProduct from "./pages/productManager/EditProduct";
+import AddNewStore from "./pages/productManager/AddNewStore";
 
 export const UserContext = createContext();
 export const CartContext = createContext();
@@ -106,21 +108,21 @@ const App = () => {
 
                   <li className="nav-item">
                     <Link className="nav-link text-light" aria-current="page"
-                      to="/About"
+                      to="/"
                       onClick={clickView}>
                       Trang chủ &#160;  |
                     </Link>
                   </li>
 
                   <li className="nav-item dropdown ">
-                    <Link className="nav-link text-light" to="/Menu" onClick={clickView}>
+                    <Link className="nav-link text-light" to="/app" onClick={clickView}>
                       Tải ứng dụng &#160;  |
                     </Link>
                   </li>
 
                   <li className="nav-item ">
                     <Link className="nav-link text-light" aria-current="page"
-                      to="/Services"
+                      to="/connect"
                       onClick={clickView}>
                       Kết nối &#160;  |
                     </Link>
@@ -128,7 +130,7 @@ const App = () => {
 
                   <li className="nav-item ">
                     <Link className="nav-link text-light" aria-current="page"
-                      to="/Services"
+                      to="/aboutMe"
                       onClick={clickView}>
                       Về chúng tôi
                     </Link>
@@ -283,6 +285,8 @@ const App = () => {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/addNewProduct" element={<AddNewProduct />} />
+          <Route path="/addNewStore" element={<AddNewStore />} />
+          <Route path="/editProduct/:id" element={<EditProduct />} />
         </Routes>
         </CartContext.Provider>
       </UserContext.Provider>

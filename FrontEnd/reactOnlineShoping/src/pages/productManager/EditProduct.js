@@ -1,6 +1,6 @@
 import React, { useEffect,useState,useContext } from 'react'
 import ProductServices from '../../services/ProductServices';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link,useNavigate, useParams } from 'react-router-dom';
 import {
     MDBValidation,
     MDBValidationItem,
@@ -10,9 +10,10 @@ import {
 import StoreService from '../../services/StoreService';
 import { UserContext } from "../../App";
 
-function AddNewProduct() {
+function EditProduct() {
     const getUser = useContext(UserContext);
     const navigate = useNavigate();
+    const params = useParams();
     const [product, setProduct] = useState({
         productAddress: '',
         productAmount:'',
@@ -29,14 +30,16 @@ function AddNewProduct() {
     const [store, setStore] = useState([]);
 
     useEffect(() => {
-        // let initData = {};
-        // initData.store = {};
-        // setProduct(initData);
         if (getUser) {
             StoreService.getStoreByUser(getUser.id).then((res) => {
                 setStore(res.data);
             })
+            ProductServices.getProductById(params.id).then((res) =>{
+                setProduct(res.data);
+            })
       }},[]);
+
+      console.log(product);
 
     const handleChange = (event) => {
         const target = event.target;
@@ -48,25 +51,8 @@ function AddNewProduct() {
         setProduct(data);
     }
 
-    // useEffect(()=>{
-    //     let data = {...product};
-    //     data.store.storeId = store.storeId;
-    //     setProduct(data);
-    // },[store])
-
-    // const handleChangeStore = (event) => {
-    //     console.log(event);
-    //     const target = event.target;
-    //     const value = target.value;
-    //     const name = target.name;
-    //     let data = {...product};
-    //     data.store[name] = value;
-    //     setProduct(data);
-    //     console.log('test product' + product)
-    //   };
-
     const saveProduct = (event) => {
-        ProductServices.addNewProduct(product).then(res => {
+        ProductServices.updateProduct(product.productId, product).then(res => {
             console.log('save success!');
             navigate(-1);
         });
@@ -82,9 +68,9 @@ function AddNewProduct() {
         <div style={{backgroundColor: 'rgb(246, 239, 239)'}}>
         <div className='pt-3' style={{backgroundColor: 'rgb(246, 239, 239)'}}></div>
         <div className='container col-md-8 bg-light pt-2'>
-            <h2> Thêm sản phẩm mới <hr/> </h2>
+            <h2> Cập nhật sản phẩm<hr/> </h2>
             <div className='row pt-4 pb-3'>
-            <div className='col-md-6'> <img className='img-fluid' src={product.productImage} alt='no-image'/> </div>
+            <div className='col-md-6'> <img className='img-fluid' style={{aspectRatio: 1 / 1.02}} src={product.productImage} alt='no-image'/> </div>
             <div className='col-md-6'>
                 <MDBValidation className='row g-3'>
                     <div className='col-md-3'><label> Xuất xứ: </label></div>
@@ -172,15 +158,6 @@ function AddNewProduct() {
                             required/>
                     </MDBValidationItem></div>
 
-                    {/* <label> Mã store: </label>
-                    <MDBValidationItem feedback='Please provide a valid card email.' invalid>
-                        <MDBInput
-                            placeholder='Mô tả sản phẩm' name='storeId' className='form-control' value={product.storeId} 
-                            onChange={(e) => handleChangeStore(e)}
-                            required/>
-                    </MDBValidationItem> */}
-
-                    {/* --------------------------------------------------------- */}
                     <div className='col-12'>
                         <MDBBtn type='submit' className='btn btn-info me-2' onClick={(e) => saveProduct(e)}>Lưu</MDBBtn>
                         <MDBBtn type='reset' className='btn btn-danger me-2'>Đặt lại</MDBBtn>
@@ -201,4 +178,4 @@ function AddNewProduct() {
     }
 }
 
-export default AddNewProduct;
+export default EditProduct;

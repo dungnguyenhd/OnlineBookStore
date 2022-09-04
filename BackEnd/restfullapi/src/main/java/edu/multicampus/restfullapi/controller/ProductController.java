@@ -59,14 +59,12 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/productStore")
-	public ResponseEntity<List<Product>> getProductByStore(@Param("productName") String productName) {
+	public ResponseEntity<List<Product>> getProductByStore(@Param("storeId") Integer storeId) {
 		try {
 			List<Product> Products = new ArrayList<Product>();
 
-			if (productName != null) {
-				Products = productRepository.search1(productName);
-			} else {
-				Products = productRepository.findAll();
+			if (storeId != null) {
+				Products = productRepository.search1(storeId);
 			}
 
 			if (Products.isEmpty()) {
@@ -121,17 +119,17 @@ public class ProductController {
 
 		if (ProductData.isPresent()) {
 			Product _product = ProductData.get();
-			_product.setProductName(_product.getProductName());
-			_product.setProductType(_product.getProductType());
-			_product.setProductOldPrice(_product.getProductOldPrice());
-			_product.setProductNewPrice(_product.getProductNewPrice());
-			_product.setProductAmount(_product.getProductAmount());
-			_product.setProductDate(_product.getProductDate());
-			_product.setProductDescription(_product.getProductDescription());
-			_product.setProductStatus(_product.getProductStatus());
-			_product.setProductImage(_product.getProductImage());
-			_product.setProductAddress(_product.getProductAddress());
-			_product.setStore(_product.getStore());
+			_product.setProductName(product.getProductName());
+			_product.setProductType(product.getProductType());
+			_product.setProductOldPrice(product.getProductOldPrice());
+			_product.setProductNewPrice(product.getProductNewPrice());
+			_product.setProductAmount(product.getProductAmount());
+			_product.setProductDate(product.getProductDate());
+			_product.setProductDescription(product.getProductDescription());
+			_product.setProductStatus(product.getProductStatus());
+			_product.setProductImage(product.getProductImage());
+			_product.setProductAddress(product.getProductAddress());
+			_product.setStore(product.getStore());
 			return new ResponseEntity<>(productRepository.save(_product), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -151,7 +149,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/getAmount")
-	public ResponseEntity<Integer> getProductByStore(@Param("storeId")Integer storeId){
+	public ResponseEntity<Integer> getAmountByStore(@Param("storeId")Integer storeId){
 		try {
 			List<Product> list = new ArrayList<Product>();
 					list = productRepository.getProductByStore(storeId);

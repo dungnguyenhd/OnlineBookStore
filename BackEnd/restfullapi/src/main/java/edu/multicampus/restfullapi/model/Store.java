@@ -44,7 +44,7 @@ public class Store {
     @JoinColumn(name = "id", referencedColumnName = "id")
     private User user;
 
-	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "store", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Product> product;
 

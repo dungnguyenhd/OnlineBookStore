@@ -75,7 +75,7 @@ export default function ProductManager() {
                 </td>
 
                 <td>
-                    <Link to={`/edit/` + product.productId}><button className='btn btn-info'>Sửa</button></Link>
+                    <Link to={`/editProduct/` + product.productId}><button className='btn btn-info'>Sửa</button></Link>
                 </td>
                 <td>
                     <button
@@ -122,7 +122,7 @@ export default function ProductManager() {
                 </div>
             </div>
             <div className='mt-2'>
-                <Link to={`/add`}><button className='btn btn-success'> Thêm sản phẩm mới </button></Link>
+                <Link to={`/addNewProduct`}><button className='btn btn-success'> Thêm sản phẩm mới </button></Link>
             </div>
 
             <div>

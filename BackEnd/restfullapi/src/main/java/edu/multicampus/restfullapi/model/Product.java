@@ -53,7 +53,7 @@ public class Product {
 	@Column(name= "product_address")
 	private String productAddress;
 
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER,optional = false)
 	@JoinColumn(name = "storeId", nullable = false)
 	private Store store;
 	

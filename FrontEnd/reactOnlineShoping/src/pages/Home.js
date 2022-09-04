@@ -80,7 +80,7 @@ const Home = () => {
           <SwiperSlide key={product.productId}>
             <Link className="product-link" to={'/product/' + product.productId}>
               <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }} >
-                <img src={product.productImage} className="card-img-top" alt="..." />
+                <img src={product.productImage} style={{aspectRatio: 1 / 1.02}} className="card-img-top" alt="..." />
                 <div className="card-body">
                   <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
                   <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i className="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
@@ -94,6 +94,9 @@ const Home = () => {
       }
     })
   }
+  else{
+    return <h1> NO SALES </h1>
+  }
 
   var listProduct = [];
 
@@ -102,7 +105,7 @@ const Home = () => {
       <div className="col-xl-2 col-md-2 mb-3 mt-3 " key={product.productId}>
         <Link className="product-link" to={'/product/' + product.productId}>
         <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width:"10.5rem"}}>
-          <img src={product.productImage} className="card-img-top" alt="..." />
+          <img src={product.productImage} style={{aspectRatio: 1 / 1.02}} className="card-img-top" alt="..." />
           <div className="card-body">
             <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
             <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i className="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
