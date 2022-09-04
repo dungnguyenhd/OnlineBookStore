@@ -24,6 +24,7 @@ import Cart from "./pages/Cart";
 import AddNewProduct from "./pages/productManager/AddNewProduct";
 import EditProduct from "./pages/productManager/EditProduct";
 import AddNewStore from "./pages/productManager/AddNewStore";
+import Category from "./pages/categories/category";
 
 export const UserContext = createContext();
 export const CartContext = createContext();
@@ -287,6 +288,7 @@ const App = () => {
           <Route path="/addNewProduct" element={<AddNewProduct />} />
           <Route path="/addNewStore" element={<AddNewStore />} />
           <Route path="/editProduct/:id" element={<EditProduct />} />
+          <Route path="/category/:name" element={<Category />} />
         </Routes>
         </CartContext.Provider>
       </UserContext.Provider>

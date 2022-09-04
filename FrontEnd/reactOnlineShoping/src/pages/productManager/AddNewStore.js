@@ -97,10 +97,10 @@ function AddNewStore() {
                     {/* --------------------------------------------------------- */}
 
 
-                    <div className='col-md-3'><label> Số điện thoại: </label></div>
+                    <div className='col-md-3'><label> Email: </label></div>
                     <div className='col-md-9'><MDBValidationItem feedback='Please provide a valid card email.' invalid>
                         <MDBInput
-                            placeholder='Email' type='number' name='storeEmail' className='form-control' value={store.storeEmail} 
+                            placeholder='Email' name='storeEmail' className='form-control' value={store.storeEmail} 
                             onChange={(e) => handleChange(e)}
                             required/>
                     </MDBValidationItem></div>

@@ -56,7 +56,7 @@ const Cart = (props) => {
         <div className="container-fluid">
             <div className="row">
                 <div className="col mt-2">
-                    <h2 className="text-center">Your Cart</h2>
+                    <h2 className="text-center">Giỏ hàng của bạn</h2>
                     <table className="table table-bordered table-striped p-2">
                         <thead>
                             <tr>

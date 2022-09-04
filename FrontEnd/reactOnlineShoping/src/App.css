@@ -146,6 +146,11 @@ input {
   padding-bottom: 1.2rem;
 }
 
+.home-link{
+  text-decoration: none;
+  color: #0b0101;
+}
+
 .home {
   background-image: url("https://i.imgur.com/lWrJFEF.png");
   background-repeat: no-repeat;
