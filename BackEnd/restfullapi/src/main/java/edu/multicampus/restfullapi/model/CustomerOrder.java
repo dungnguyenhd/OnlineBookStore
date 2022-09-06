@@ -46,7 +46,7 @@ public class CustomerOrder {
 		super();
 	}
 	
-	public CustomerOrder(Product product, User user, int amount, String comment, int rating, Boolean status) {
+	public CustomerOrder(Product product, User user, int amount, String comment, int rating, Boolean status, CustomerOrderKey userId) {
 		super();
 		this.product = product;
 		this.user = user;
@@ -54,6 +54,7 @@ public class CustomerOrder {
 		this.comment = comment;
 		this.rating = rating;
 		this.status = status;
+		this.id = userId;
 	}
 
 

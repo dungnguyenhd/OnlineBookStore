@@ -19,9 +19,9 @@ export default function ProductManager() {
         if(getUser !== null){
         StoreService.getStoreByUser(getUser.id).then((res) => {
             setStore(res.data);
-        })
-        ProductServices.getStoreProduct(store.storeId).then((res) => {
-            setProducts(res.data);
+            ProductServices.getStoreProduct(res.data.storeId).then((response) => {
+                setProducts(response.data);
+            })
         })
     }
     },[])
@@ -53,9 +53,9 @@ export default function ProductManager() {
 
     const sortColumn = (field, type) => {
         const sortData = [...products];
-        if (type == 'string') {
+        if (type === 'string') {
             sortData.sort((a, b) => direction * a[field].localeCompare(b[field]));
-        } else if (type == 'number') {
+        } else if (type === 'number') {
             sortData.sort((a, b) => direction * (a[field] - b[field]));
         }
         setDirection(direction * -1);
@@ -68,8 +68,8 @@ export default function ProductManager() {
             <tr key={product.productId}>
                 <th scope="row">{product.productId}</th>
                 <td style={{textAlign:'left'}}>{product.productName}</td>
-                <td><img src={product.productImage} className='img-fluid' width='30%'/></td>
-                <td>{product.productNewPrice.toLocaleString("en-US")}</td>
+                <td><img src={product.productImage} className='img-fluid' width='30%' alt='no-image' style={{aspectRatio: 1 / 1.02}}/></td>
+                <td>{product.productNewPrice.toLocaleString("en-US")} vnđ</td>
                 <td>
                 <Link className="product-link" to={'/product/'+product.productId}><button className='btn btn-warning'>Xem</button></Link>
                 </td>

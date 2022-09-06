@@ -26,8 +26,8 @@ export default function PersonalStore() {
 
     const productPerPage = 8;
     const pagesVisited = pageNumber * productPerPage;
-
     const pageCount = Math.ceil(product.length / productPerPage)
+
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     }
@@ -44,16 +44,12 @@ export default function PersonalStore() {
         setProduct(sortData);
     };
 
-    // console.log(store.storeId);
-    // console.log('test ' +productAmount);
-    // console.log(store);
-
     var listProduct = [];
     if (product.length !== 0) {
         listProduct = product.slice(pagesVisited, pagesVisited + productPerPage).map((product) => (
             <div className="col-xl-3 col-md-3 mb-3 mt-1 " key={product.productId}>
                 <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.5rem' }}>
-                    <img src={product.productImage} className="card-img-top" alt="..." />
+                    <img src={product.productImage} className="card-img-top" alt="no-image" style={{aspectRatio: 1 / 1.02}}/>
                     <div className="card-body">
                         <p className="card-title textOverflow " style={{ textTransform: 'uppercase', textAlignLast: 'justify', }}>{product.productName}</p>
                         <p><span style={{ backgroundColor: '#26aa99', padding: '3px', fontSize: '.6rem', fontWeight: 'bold', fontStyle: 'italic', color: 'rgb(250, 247, 247)' }}> <i className="fa fa-shipping-fast"></i>&#160; FREE SHIP</span></p>
@@ -66,15 +62,10 @@ export default function PersonalStore() {
     }
 
     if (store.length === 0) {
-        return (
-            <>
-                <h1> Có vẻ như bạn chưa có cửa hàng nào </h1>
-                <Link to='/createStore'><button className="btn btn-info"> Tạo cửa hàng </button></Link>
-            </>
-        )
+        return (<><h1> Có vẻ như bạn chưa có cửa hàng nào </h1>
+                <Link to='/createStore'><button className="btn btn-info"> Tạo cửa hàng </button></Link></>)
     }
-    else {
-        return (
+    else { return (
             <>
                 <div style={{ backgroundColor: 'rgb(246, 239, 239)' }}>
                     <div className="container pt-3">

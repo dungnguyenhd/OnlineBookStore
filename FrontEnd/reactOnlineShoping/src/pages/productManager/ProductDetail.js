@@ -6,6 +6,7 @@ import CustomerOrderService from '../../services/CusOrderService';
 import { useDispatch } from 'react-redux';
 import { ADD } from '../redux/action';
 import { UserContext } from "../../App";
+import CusOrderService from '../../services/CusOrderService';
 
 function ProductDetail() {
   const getUser = useContext(UserContext);
@@ -13,12 +14,33 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [store, setStore] = useState({});
   const [comment, setComment] = useState([]);
-  let navigate = useNavigate();
-
+  const [isDisabled, setDisabled] = useState(false);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
+  const [newcmt, setNewCmt] = useState({
+    product:{
+      productId: ''
+    },
+    user:{
+      id: ''
+    },
+    comment: '',
+    amount: '2',
+    rating: '5',
+    id:{
+      productId:'',
+      userId:''
+    }
+  });
+
   const send = (e) => {
     if(getUser){
     dispatch(ADD(e));
+    setDisabled(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
   else{
     navigate("/login");
@@ -39,6 +61,31 @@ function ProductDetail() {
     });
 
   }, []);
+
+  const handleComment = (e) =>{
+    setNewCmt({
+      product:{
+        productId: product.productId
+      },
+      user:{
+        id: getUser.id
+      },
+      comment: e.target.value,
+      amount: '2',
+      rating: '5',
+      id:{
+        productId:product.productId,
+        userId:getUser.id
+      }
+    })
+    // console.log(newcmt);
+  }
+  
+  const sendComment = () =>{
+    CusOrderService.addNewComment(newcmt).then((res)=>{
+      console.log('success');
+    })
+  }
 
   var listComment = [];
   if(comment.length !== 0){
@@ -89,9 +136,9 @@ function ProductDetail() {
                 </div>
 
                 <div className='pt-3' style={{ textAlign: 'left' }} key={product.productId}>
-                  <button className='btn btn-outline-danger p-3' onClick={() => send(product)}> <i className="fa fa-cart-arrow-down"></i> Thêm vào giỏ hàng </button>
+                  <button className='btn btn-outline-danger p-3' onClick={() => send(product)} disabled={isDisabled}> <i className="fa fa-cart-arrow-down"></i> Thêm vào giỏ hàng </button>
                   &#160;&#160;&#160;
-                  <button className='btn btn-danger p-3'> <i className="fa fa-bags-shopping"></i> Mua ngay </button>
+                  <Link to={'/cart'} onClick={()=>send(product)}><button className='btn btn-danger p-3'> <i className="fa fa-bags-shopping"></i> Mua ngay </button></Link>
                 </div>
               </div>
             </div>
@@ -139,6 +186,13 @@ function ProductDetail() {
             <div> &#160; HỎI ĐÁP, ĐÁNH GIÁ <hr></hr> </div>
 
             <div> {listComment} </div>
+          </div>
+
+          <div className='container pt-2 pb-2 mt-3' style={{backgroundColor: 'white', borderRadius: '2px', textAlign: 'left' }}> 
+            <div>&#160; BÌNH LUẬN </div>
+
+            <div> <input type="text" className="form-control mt-2" onChange={(e)=>handleComment(e)}/> </div>
+            <div> <button onClick={()=>sendComment()}> Gui </button> </div>
           </div>
 
           <div className='pt-5'></div>

@@ -15,7 +15,7 @@ class ProductServices{
     getStoreProduct(stringSearch){
         var text = "";
         if(stringSearch!==""){
-            text="?productName="+stringSearch;
+            text="?storeId="+stringSearch;
         }
         return axios.get('http://localhost:8080/api/productStore'+text);
     }

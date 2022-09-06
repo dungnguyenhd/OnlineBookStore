@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import ProductServices from "../../services/ProductServices";
 
-export default function Category() {
+export default function SearchResult() {
     const [product, setProduct] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const params = useParams();
@@ -13,7 +13,7 @@ export default function Category() {
         })
     }, []);
 
-    // console.log(product);
+    console.log(product);
 
     const productPerPage = 8;
     const pagesVisited = pageNumber * productPerPage;
@@ -54,31 +54,15 @@ export default function Category() {
         ));
     }
     else {
-        listProduct = <h6> Không có sản phẩm nào thuộc mục này</h6>
+        listProduct = <h6> Không có sản phẩm nào phù hợp</h6>
     }
 
 
     return (
         <>
             <div style={{ backgroundColor: 'rgb(246, 239, 239)' }}>
-                <div className="container pt-3">
-                    <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
-                        <div className="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div className="carousel-inner " style={{ borderRadius: '5px'}}>
-                            <div className="carousel-item active"><img className="img-fluid" src="https://t3.ftcdn.net/jpg/04/65/46/52/360_F_465465254_1pN9MGrA831idD6zIBL7q8rnZZpUCQTy.jpg" style={{height: '350px', width: '1500px'}}/></div>
-                            <div className="carousel-item"><img className="img-fluid" src="https://img.freepik.com/free-vector/summer-season-sale-fifty-percent-off-lettering_1262-12130.jpg?w=2000" style={{height: '350px', width: '1500px'}}/></div>
-                            <div className="carousel-item"><img className="img-fluid" src="https://images.designtrends.com/wp-content/uploads/2016/08/08181126/Summer-Sale-Template-Banner.jpg" style={{height: '350px', width: '1500px'}}/></div>
-                        </div>
-                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev"><span className="carousel-control-prev-icon" aria-hidden="true"></span><span className="visually-hidden">Previous</span></button>
-                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next"><span className="carousel-control-next-icon" aria-hidden="true"></span><span className="visually-hidden">Next</span></button>
-                    </div>
-                </div>
                 <div className="container">
-                    <div className="row mt-3 pt-2">
+                    <div className="row pt-3">
                         <div className="col-md-2">
                             <p className="pt-3 ps-2" style={{ textAlign: 'left' }}> <i className="fa fa-list"></i> &#160; Bộ lọc </p>
                             <hr></hr>
@@ -91,6 +75,11 @@ export default function Category() {
                         </div>
 
                         <div className="col-md-10" style={{ backgroundColor: 'white', borderRadius: '3px' }} >
+
+                        <div className="container-fluid mt-2" style={{ backgroundColor: 'rgb(246, 239, 239)' }}>
+                                <p style={{ textAlign: 'left' }}> Kết quả tìm kiếm cho: {params.name} </p>
+                            </div>
+
                             <div className="container-fluid mt-2 pb-2" style={{ textAlign: 'left', backgroundColor: 'rgb(247, 242, 242)', borderRadius: '3px' }}>
                                 Sắp xếp theo &#160;&#160;
                                 <div className="dropdown">

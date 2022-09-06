@@ -62,6 +62,13 @@ const Home = () => {
     })
   }, [searchTerm]);
 
+  const clickView = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const productPerPage = 20;
   const pagesVisited = pageNumber * productPerPage;
 
@@ -77,7 +84,7 @@ const Home = () => {
       if (minutes >= 0 && !product.productStatus) {
         return (
           <SwiperSlide key={product.productId}>
-            <Link className="product-link" to={'/product/' + product.productId}>
+            <Link className="product-link" to={'/product/' + product.productId} onClick={clickView}>
               <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width: '12.6rem' }} >
                 <img src={product.productImage} style={{aspectRatio: 1 / 1.02}} className="card-img-top" alt="..." />
                 <div className="card-body">
@@ -101,8 +108,8 @@ const Home = () => {
 
   if (products.length !== null) {
     listProduct = products.slice(pagesVisited, pagesVisited + productPerPage).map((product) => (
-      <div className="col-xl-2 col-md-2 mb-3 mt-3 " key={product.productId}>
-        <Link className="product-link" to={'/product/' + product.productId}>
+      <div className="col-md-2 col-6 mb-3 mt-3 " key={product.productId}>
+        <Link className="product-link" to={'/product/' + product.productId} onClick={clickView}>
         <div className="card" style={{ textAlign: 'left', fontSize: '.9rem', width:"10.5rem"}}>
           <img src={product.productImage} style={{aspectRatio: 1 / 1.02}} className="card-img-top" alt="..." />
           <div className="card-body">
@@ -160,18 +167,18 @@ const Home = () => {
         <div className="container mt-3" style={{ backgroundColor: 'white', border: '1px solid lightgrey' }}>
           <div className="pt-3 ps-2 text-secondary" style={{ textAlign: 'left' }}> <i className="fa fa-list"></i>&#160; DANH MỤC</div>
           <div className="row g-4" style={{ paddingBottom: '1rem', paddingTop: '.7rem' }}>
-            <div className="col-md-2"><Link to='/category/dienthoai' className="home-link"><div className="card p-1"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Điện</span> <span>thoại</span> </div><div> <img src="https://i.imgur.com/WgqOgAJ.png" height="87" width="100" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/dongho' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Đồng</span> <span>hồ</span> </div><div> <img src=" https://i.imgur.com/NNEPrFe.jpeg" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/mayanh' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Máy</span> <span>ảnh</span> </div><div> <img src="https://i.imgur.com/VPJkQuK.jpeg" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/laptop' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Laptops</span> </div><div> <img src="https://i.imgur.com/JwePSoS.jpeg" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/tv' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"><span>TV</span> </div><div style={{ paddingLeft: '10px' }}> <img src=" https://i.imgur.com/Zq8VigZ.png" height="80" width="100" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/giadung' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Gia</span> <span>dụng</span> </div><div> <img src="https://i.imgur.com/e9CyhXR.png" height="80" width="60" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/thoitrang' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Thời trang</span> </div><div> <img src="https://i.imgur.com/UtgJh1l.png" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/giaydep' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Giày dép</span> </div><div> <img src="https://i.imgur.com/erLGVLv.png" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/sacdep' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Sắc đẹp</span> </div><div> <img src="https://i.imgur.com/TZ7UbLP.png" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/mevabe' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Mẹ và bé</span> </div><div> <img src="https://i.imgur.com/hYXxKwo.jpeg" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/suckhoe' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Sức khỏe</span> </div><div> <img src="https://i.imgur.com/wFxPyxC.png" height="80" width="80" /> </div></div></div></Link></div>
-            <div className="col-md-2"><Link to='/category/sach' className="home-link"><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Sách</span> </div><div> <img src="https://i.ibb.co/YBTgf53/1ec6555cccd1de933f59008606668d0b.jpg" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/dienthoai' className="home-link" onClick={clickView}><div className="card p-1"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Điện</span> <span>thoại</span> </div><div> <img src="https://i.imgur.com/WgqOgAJ.png" height="87" width="100" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/dongho' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Đồng</span> <span>hồ</span> </div><div> <img src=" https://i.imgur.com/NNEPrFe.jpeg" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/mayanh' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Máy</span> <span>ảnh</span> </div><div> <img src="https://i.imgur.com/VPJkQuK.jpeg" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/laptop' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Laptops</span> </div><div> <img src="https://i.imgur.com/JwePSoS.jpeg" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/tv' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"><span>TV</span> </div><div style={{ paddingLeft: '10px' }}> <img src=" https://i.imgur.com/Zq8VigZ.png" height="80" width="100" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/giadung' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Gia</span> <span>dụng</span> </div><div> <img src="https://i.imgur.com/e9CyhXR.png" height="80" width="60" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/thoitrang' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Thời trang</span> </div><div> <img src="https://i.imgur.com/UtgJh1l.png" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/giaydep' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Giày dép</span> </div><div> <img src="https://i.imgur.com/erLGVLv.png" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/sacdep' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Sắc đẹp</span> </div><div> <img src="https://i.imgur.com/TZ7UbLP.png" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/mevabe' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Mẹ và bé</span> </div><div> <img src="https://i.imgur.com/hYXxKwo.jpeg" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/suckhoe' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Sức khỏe</span> </div><div> <img src="https://i.imgur.com/wFxPyxC.png" height="80" width="80" /> </div></div></div></Link></div>
+            <div className="col-md-2"><Link to='/category/sach' className="home-link" onClick={clickView}><div className="card p-2"><div className="d-flex justify-content-between align-items-center p-2"><div className="flex-column lh-1 imagename"> <span>Sách</span> </div><div> <img src="https://i.ibb.co/YBTgf53/1ec6555cccd1de933f59008606668d0b.jpg" height="80" width="80" /> </div></div></div></Link></div>
           </div>
         </div>
 
@@ -196,8 +203,6 @@ const Home = () => {
                 disableOnInteraction: false,
               }}
               pagination={{ clickable: true }}
-              onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log('slide change')}
               style={{ "--swiper-navigation-color": "black", "--swiper-navigation-size": "16px", }}>
               {listFlashSale}
             </Swiper>

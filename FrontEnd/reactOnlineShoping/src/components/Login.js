@@ -1,10 +1,8 @@
 import React from "react";
-// import Form from "react-validation/build/form";
-// import Input from "react-validation/build/input";
-// import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {useState } from "react";
+import '../App.css';
 
 const required = value => {
   if (!value) {
@@ -26,21 +24,6 @@ function Login() {
 
   let navigate = useNavigate();
 
-  // const onChangeUsername = (e) => {
-  //   setStateLogin({
-  //     ...stateLogin,
-  //     username: e.target.value,
-  //   });
-  // }
-
-  // console.log(stateLogin.username);
-
-  // const onChangePassword = (e) => {
-  //   setStateLogin({
-  //     ...stateLogin,
-  //     password: e.target.value,
-  //   });
-  // }
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -51,9 +34,6 @@ function Login() {
       loading: true
     });
 
-    // this.form.validateAll();
-
-    // if (this.checkBtn.context._errors.length === 0) {
     AuthService.login(stateLogin.username, stateLogin.password).then(
       () => {
         console.log("success");
@@ -84,24 +64,19 @@ function Login() {
   }
 
   return (
-    <div className="container" style={{height: '810px'}}>
+    <div className="login">
+    <div className="container" style={{height: '680px'}}>
       <div className="row pt-5">
-        <div className="col-4"></div>
-        <div className="col-4">
+        <div className="col-md-8"></div>
+        <div className="col-md-4 p-5 mt-4" style={{backgroundColor:'white', borderRadius: '5px'}}>
           <div className="mb-3 text-center">
             <img className="img-fluid"
-              src="https://images.squarespace-cdn.com/content/v1/5c5382928dfc8cdc537fe0e5/d7179f08-6197-43eb-b920-bdfe7c23676e/Logo+5.png?format=1500w"
-              style={{ maxWidth: '80% !important', height: 'auto !important' }}/>
+              src="https://i.imgur.com/N9Kg4e1.png" width="50%"/>
           </div>
 
-          <form
-            onSubmit={(e) => handleLogin(e)}
-          // ref={c => {
-          //   this.form = c;
-          // }}
-          >
+          <form onSubmit={(e) => handleLogin(e)}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Tên đăng nhập</label>
               <input
                 type="text"
                 className="form-control"
@@ -116,7 +91,7 @@ function Login() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Mật khẩu</label>
               <input
                 type="password"
                 className="form-control"
@@ -139,8 +114,10 @@ function Login() {
                 {stateLogin.loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
-                <span>Login</span>
+                <span>Đăng nhập</span>
               </button>
+              <br/><br/>
+              <span> Chưa có tài khoản?  <Link to={'/register'} style={{textDecoration: 'none'}}>Đăng kí ngay</Link> </span>
             </div>
 
             {stateLogin.message && (
@@ -150,16 +127,10 @@ function Login() {
                 </div>
               </div>
             )}
-            {/* <CheckButton
-            style={{ display: "none" }}
-          ref={c => {
-            this.checkBtn = c;
-          }}
-          /> */}
           </form>
         </div>
-        <div className="col-4"></div>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../App';
 import { DLT } from "./redux/action";
 import { useDispatch } from "react-redux/es/exports";
@@ -35,9 +35,9 @@ const Cart = (props) => {
             <tr key={key}>
                 <td>{key + 1}</td>
                 <td>
-                    <input value={amount} onChange={(e) => handleAmount(e)}></input>
+                    <input value={amount} onChange={(e) => handleAmount(e)} style={{width: '50%'}}></input>
                 </td>
-                <td><img src={item.productImage} height='100px' /> </td>
+                <td><Link to={'/product/'+item.productId}><img src={item.productImage} height='100px' /></Link> </td>
                 <td>{item.productName}</td>
                 <td className="text-right">{item.productNewPrice.toLocaleString("en-US")} vnđ</td>
                 <td className="text-right">{(item.productNewPrice * amount).toLocaleString("en-US")} vnđ</td>
@@ -60,12 +60,12 @@ const Cart = (props) => {
                     <table className="table table-bordered table-striped p-2">
                         <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>SL</th>
-                                <th>Ảnh</th>
-                                <th>Sản phẩm</th>
-                                <th className="text-right">Đơn giá</th>
-                                <th className="text-right">Tổng tiền</th>
+                                <th width='40px'>STT</th>
+                                <th width='80px'>SL</th>
+                                <th width='250px'>Ảnh</th>
+                                <th width='600px'>Sản phẩm</th>
+                                <th className="text-right" width='180px'>Đơn giá</th>
+                                <th className="text-right" width='180px'>Tổng tiền</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,9 +98,11 @@ const Cart = (props) => {
                         <button className="btn btn-primary m-1" onClick={() => navigate(-1)}>
                             Tiếp tục mua sắm
                         </button>
+                        <Link to={'/payment'}>
                         <button className="btn btn-danger m-1" type="button">
                             Thanh toán
                         </button>
+                        </Link>
                     </div>
                 </div>
             </div>

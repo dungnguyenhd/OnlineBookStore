@@ -138,25 +138,18 @@ export default function Register() {
   }
 
   return (
-    <div className="container" style={{height: '810px'}}>
+    <div className="login">
+    <div className="container">
       <div className="row pt-5">
-        <div className="col-4"></div>
-        <div className="col-4">
-
-        <img className="img-fluid"
-              src="https://images.squarespace-cdn.com/content/v1/5c5382928dfc8cdc537fe0e5/d7179f08-6197-43eb-b920-bdfe7c23676e/Logo+5.png?format=1500w"
-              style={{ maxWidth: '80% !important', height: 'auto !important' }}/>
-
-        <form
-          onSubmit={(e)=> handleRegister(e)}
-          // ref={c => {
-          //   this.form = c;
-          // }}
-        >
+        <div className="col-md-8"></div>
+        <div className="col-md-4 p-4 mt-4" style={{backgroundColor:'white', borderRadius: '5px'}}>
+        <form onSubmit={(e)=> handleRegister(e)}>
           {!stateRegister.successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <h5> Đăng kí tài khoản </h5>
+
+                <label htmlFor="username">Tên đăng nhập</label>
                 <input
                   type="text"
                   className="form-control"
@@ -186,7 +179,7 @@ export default function Register() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Mật khẩu</label>
                 <input
                   type="password"
                   className="form-control"
@@ -201,7 +194,7 @@ export default function Register() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="name">Full Name</label>
+                <label htmlFor="name">Họ và tên</label>
                 <input
                   type="name"
                   className="form-control"
@@ -216,7 +209,7 @@ export default function Register() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address">Địa chỉ</label>
                 <input
                   type="address"
                   className="form-control"
@@ -231,7 +224,7 @@ export default function Register() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="phone">Phone</label>
+                <label htmlFor="phone">Số điện thoại</label>
                 <input
                   type="phone"
                   className="form-control"
@@ -246,7 +239,7 @@ export default function Register() {
               </div>
 
               <div className="form-group mt-2" >
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className="btn btn-primary btn-block">Đăng kí</button>
               </div>
             </div>
           )}
@@ -265,16 +258,10 @@ export default function Register() {
               </div>
             </div>
           )}
-          {/* <CheckButton
-              style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
-            /> */}
         </form>
       </div>
-        <div className="col-4"></div>
       </div>
+    </div>
     </div>
   );
 }

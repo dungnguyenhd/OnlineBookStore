@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatedInput } from "./common/searchScript";
 //----------------common---------------------------
 import eventBus from "./common/EventBus";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import authService from "./services/auth.service";
 // -----------------css----------------------------
 import './App.css';
@@ -25,11 +25,17 @@ import AddNewProduct from "./pages/productManager/AddNewProduct";
 import EditProduct from "./pages/productManager/EditProduct";
 import AddNewStore from "./pages/productManager/AddNewStore";
 import Category from "./pages/categories/category";
+import SearchResult from "./pages/categories/searchResult";
+import Success from "./pages/productManager/PaymentSuccess";
 
 export const UserContext = createContext();
 export const CartContext = createContext();
 
 const App = () => {
+
+  // ------------------------------------------------------HEADER-------------------------------------------------------------------
+   // ------------------------------------------------------HEADER-------------------------------------------------------------------
+
   const [stateLogin, setStateLogin] = useState({
     showModeratorBoard: false,
     showAdminBoard: false,
@@ -39,11 +45,11 @@ const App = () => {
   const getdata = useSelector((state) => state.cartreducer.carts);
   const dispatch = useDispatch();
   const [price, setPrice] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     const userGet = authService.getCurrentUser();
-
     if (userGet) {
       setStateLogin({
         currentUser: userGet,
@@ -69,22 +75,32 @@ const App = () => {
     });
   };
 
+  const onClickEnter = (event) => {
+    if (event.key === 'Enter') {
+      navigate("/search/"+searchTerm);
+    }
+  }
+
+  const search = () => {
+    navigate("/search/"+searchTerm);
+  }
+
   const dlt = (id) => {
     dispatch(DLT(id));
     console.log('ok')
   }
 
-  const total = () =>{
+  const total = () => {
     let price = 0;
-    getdata.map((ele,k) =>{
+    getdata.map((ele, k) => {
       price = ele.productNewPrice + price;
     });
     setPrice(price);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     total();
-  },[total])
+  }, [total])
 
   return (
     <div className="App">
@@ -130,11 +146,11 @@ const App = () => {
                   </li>
 
                   <li className="nav-item ">
-                    <Link className="nav-link text-light" aria-current="page"
-                      to="/aboutMe"
+                    <a className="nav-link text-light" aria-current="page"
+                      href="https://github.com/dungnguyenhd"
                       onClick={clickView}>
-                      Về chúng tôi
-                    </Link>
+                      Về tôi
+                    </a>
                   </li>
 
                   {stateLogin.showAdminBoard && (
@@ -165,11 +181,11 @@ const App = () => {
 
                   {stateLogin.currentUser && (
                     <>
-                      <Link to='/storeAdmin' className="nav-link text-light"  onClick={clickView}>
+                      <Link to='/storeAdmin' className="nav-link text-light" onClick={clickView}>
                         | &#160; Cửa hàng
                       </Link>
 
-                      <Link to='/addNewProduct' className="nav-link text-light"  onClick={clickView}>
+                      <Link to='/addNewProduct' className="nav-link text-light" onClick={clickView}>
                         | &#160; Đăng bán
                       </Link>
                     </>
@@ -202,7 +218,7 @@ const App = () => {
                       </li>
 
                       <li className="nav-item text-light">
-                        <Link to="/register" className="nav-link text-light"  onClick={clickView}>
+                        <Link to="/register" className="nav-link text-light" onClick={clickView}>
                           Đăng kí
                         </Link>
                       </li>
@@ -218,7 +234,7 @@ const App = () => {
             <div className="container">
               <div className="row">
                 <div className='col-lg-2 col-md-2 me-auto' style={{ textAlign: 'left' }}>
-                  <Link to="/" className="link-icon">
+                  <Link to="/" className="link-icon" onClick={clickView}>
                     <img className="img-fluid"
                       src='https://i.imgur.com/N9Kg4e1.png'
                       style={{ width: "58px", height: "50px" }}
@@ -229,8 +245,8 @@ const App = () => {
 
                 <div className="col-lg-8 col-md-8">
                   <form className="d-flex" style={{ justifyContent: 'center' }}>
-                    <AnimatedInput className='form-control me-2' style={{ width: '550px' }} placeholder="Bạn muốn tìm gì ?... áo thun, áo hoodie,......điện thoại iphone, samsung........" aria-label="Search" />
-                    <button type="button" className="btn btn-primary">
+                    <AnimatedInput className='form-control me-2' style={{ width: '550px' }} placeholder="Bạn muốn tìm gì ?... áo thun, áo hoodie,......điện thoại iphone, samsung........" aria-label="Search" onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={onClickEnter} />
+                    <button type="button" className="btn btn-primary" onClick={() => search()}>
                       <i className="fa fa-search"></i>
                     </button>
                   </form>
@@ -238,30 +254,30 @@ const App = () => {
 
                 <div className="dropdown-center col-lg-2 col-md-2" style={{ textAlign: 'right' }}>
                   <button type="button" className="btn btn-muted position-relative " data-bs-toggle="dropdown">
-                   <i className="fa fa-shopping-cart text-light fs-5"></i> 
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{fontSize:'.8rem'}}>
-                    {getdata.length}
+                    <i className="fa fa-shopping-cart text-light fs-5"></i>
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '.8rem' }}>
+                      {getdata.length}
                     </span>
                   </button>
                   <div className="animate slideIn dropdown-menu container mt-3" style={{ width: '24rem' }}>
                     {getdata.length > 0 ? (
                       <>
-                        <div className="row" style={{padding: '0'}}> <div className="col-md-3 text-center" style={{ borderRight: '2px solid lightgray', fontSize: '.9rem'}}><span style={{borderBottom: '2px solid lightgray' }}>Ảnh</span>  </div> <div className="col-md-7 text-center" > <span style={{borderBottom: '2px solid lightgray'}}>Sản phẩm </span> </div> <div className="col-md-2 text-center"><button className="btn btn-muted  p-0">x</button> </div>  </div>
+                        <div className="row" style={{ padding: '0' }}> <div className="col-md-3 text-center" style={{ borderRight: '2px solid lightgray', fontSize: '.9rem' }}><span style={{ borderBottom: '2px solid lightgray' }}>Ảnh</span>  </div> <div className="col-md-7 text-center" > <span style={{ borderBottom: '2px solid lightgray' }}>Sản phẩm </span> </div> <div className="col-md-2 text-center"><button className="btn btn-muted  p-0">x</button> </div>  </div>
                         {getdata.map((item, index) => {
                           return (
-                              <div className="row" style={{ textAlign: 'left' }} key={index}>
-                                <div className="col-md-3 pt-2" style={{ borderRight: '2px solid lightgray' }}> <Link to={'/product/'+item.productId}><img src={item.productImage} height='80px' /></Link> </div>
-                                <div className="col-md-7 pt-2" style={{ fontSize: '.8rem' }}> <span className="text-name">{item.productName.toUpperCase()}</span>  <br /> Đơn giá: {item.productNewPrice.toLocaleString("en-US")} vnđ </div>
-                                <div className="col-md-2 text-center"> <button className="btn btn-muted" onClick={() => dlt(index)}><i className="fa fa-trash text-danger text-center pt-4"></i></button> </div>
-                                <hr />
-                              </div>
+                            <div className="row" style={{ textAlign: 'left' }} key={index}>
+                              <div className="col-md-3 pt-2" style={{ borderRight: '2px solid lightgray' }}> <Link to={'/product/' + item.productId}><img src={item.productImage} height='80px' /></Link> </div>
+                              <div className="col-md-7 pt-2" style={{ fontSize: '.8rem' }}> <span className="text-name">{item.productName.toUpperCase()}</span>  <br /> Đơn giá: {item.productNewPrice.toLocaleString("en-US")} vnđ </div>
+                              <div className="col-md-2 text-center"> <button className="btn btn-muted" onClick={() => dlt(index)}><i className="fa fa-trash text-danger text-center pt-4"></i></button> </div>
+                              <hr />
+                            </div>
                           )
                         })}
-                        <div className="row ps-4"> Tổng:&#160;&#160; {price.toLocaleString("en-US")} vnđ </div> <hr/>
+                        <div className="row ps-4"> Tổng:&#160;&#160; {price.toLocaleString("en-US")} vnđ </div> <hr />
                         <div className="text-center"> <Link to={'/cart/'}><button className="btn btn-primary"> Xem giỏ hàng </button></Link>  </div>
                       </>
-                    ) : (<div style={{ width: '24rem', textAlign: 'center'}}>
-                      <img src='https://www.kasturijewellers.in/uploads/loader.gif' width='50%'/>
+                    ) : (<div style={{ width: '24rem', textAlign: 'center' }}>
+                      <img src='https://www.kasturijewellers.in/uploads/loader.gif' width='50%' />
                       <span className="dropdown-item">Giỏ hàng của bạn chưa có sản phẩm nào</span>
                     </div>)}
                   </div>
@@ -272,24 +288,29 @@ const App = () => {
         </div>
       </React.Fragment >
 
+      {/* // ------------------------------------------------------ROUTER-------------------------------------------------------------------
+      // ------------------------------------------------------ROUTER------------------------------------------------------------------- */}
+
       <UserContext.Provider value={stateLogin.currentUser}>
         <CartContext.Provider value={getdata}>
-        <Routes>
-          <Route exact path="/*" element={<HomeMain />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/store" element={<PersonalStore />} />
-          <Route path="/productManager" element={<ProductManager />} />
-          <Route path="/storeAdmin" element={<StoreAdmin />} />
-          <Route path="/store/:storeId" element={<PersonalStore />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/addNewProduct" element={<AddNewProduct />} />
-          <Route path="/addNewStore" element={<AddNewStore />} />
-          <Route path="/editProduct/:id" element={<EditProduct />} />
-          <Route path="/category/:name" element={<Category />} />
-        </Routes>
+          <Routes>
+            <Route exact path="/*" element={<HomeMain />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/store" element={<PersonalStore />} />
+            <Route path="/productManager" element={<ProductManager />} />
+            <Route path="/storeAdmin" element={<StoreAdmin />} />
+            <Route path="/store/:storeId" element={<PersonalStore />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/addNewProduct" element={<AddNewProduct />} />
+            <Route path="/addNewStore" element={<AddNewStore />} />
+            <Route path="/editProduct/:id" element={<EditProduct />} />
+            <Route path="/category/:name" element={<Category />} />
+            <Route path="/search/:name" element={<SearchResult />} />
+            <Route path="/payment" element={<Success />} />
+          </Routes>
         </CartContext.Provider>
       </UserContext.Provider>
 

@@ -76,13 +76,12 @@ public class CustomerOrderController {
 		try {
 //			Branch branch = new Branch(customerOrder.getBranch().getBranchName(), customerOrder.getBranch().getBranchAddress(), customerOrder.getBranch().getBranchEmail(), 
 //					customerOrder.getBranch().getBranchPhone(), customerOrder.getBranch().getBranchManagerName(), customerOrder.getBranch().getBranchCardNumber(), customerOrder.getBranch().getBranchImageURL());
-			
 			Optional<Product> product = productRepository.findById(customerOrder.getProduct().getProductId());
 			Optional<User> user = userRepository.findById(customerOrder.getUser().getId());
 			if(user.isPresent() && product.isPresent()) {
 			    Product existingProduct = product.get();
 			    User existingUser = user.get();
-			    CustomerOrder cusOrder = customerOrderRepository.save(new CustomerOrder(existingProduct, existingUser, customerOrder.getAmount(), customerOrder.getComment(), customerOrder.getRating(), customerOrder.getStatus()));
+			    CustomerOrder cusOrder = customerOrderRepository.save(new CustomerOrder(existingProduct, existingUser, customerOrder.getAmount(), customerOrder.getComment(), customerOrder.getRating(), customerOrder.getStatus(), customerOrder.getId()));
 				return new ResponseEntity<CustomerOrder>(cusOrder, HttpStatus.CREATED);
 			}else {
 				return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
